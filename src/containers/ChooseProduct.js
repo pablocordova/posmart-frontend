@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormGroup, FormControl } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { 
+import {
   Table,
   TableBody,
   TableRow,
@@ -37,7 +37,7 @@ class ChooseProduct extends Component {
 
   render() {
 
-    return(
+    return (
       <div>
         <h3>PRODUCTO</h3>
         <form>
@@ -57,13 +57,11 @@ class ChooseProduct extends Component {
         </div>
         <MuiThemeProvider>
           <Table onCellClick = { (row) => {
-              this.props.showDetailProduct(true, this.props.productsFiltered[row])
-            }
-          }>
+            this.props.showDetailProduct(true, this.props.productsFiltered[row])
+          }}>
             <TableBody
               displayRowCheckbox = { false }
             >
-              
               {
                 this.props.productsFiltered.map(product => {
                   return (
@@ -71,10 +69,9 @@ class ChooseProduct extends Component {
                       <TableRowColumn>{ product.picture }</TableRowColumn>
                       <TableRowColumn>{ product.name }</TableRowColumn>
                     </TableRow>
-                  )              
+                  )
                 })
               }
-              
             </TableBody>
           </Table>
         </MuiThemeProvider>

@@ -1,29 +1,28 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import ChooseProduct from '../containers/ChooseProduct'
 import ListProducts from '../containers/ListProducts'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { Grid, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import FlatButton from 'material-ui/FlatButton'
-import FontIcon from 'material-ui/FontIcon'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 class Sale extends Component {
 
   render() {
-    return(
+    return (
       <div>
         <div>
           <MediaQuery maxDeviceWidth = { 767 }>
-            
+
             <MuiThemeProvider>
               <FlatButton
                 labelPosition = 'before'
                 primary = { true }
                 icon =  { <ActionAndroid /> }
               >
-                <Link to = '/listProducts'> 
+                <Link to = '/listProducts'>
                   Lista
                 </Link>
               </FlatButton>
@@ -46,6 +45,6 @@ class Sale extends Component {
     )
   }
 
-} 
+}
 
 export default Sale

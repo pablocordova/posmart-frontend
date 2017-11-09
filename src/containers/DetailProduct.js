@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 import { showDetailProduct } from '../actions/products'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 class DetailProduct extends Component {
 
   render() {
-    return(
+    return (
       <div>
         <Modal show = { this.props.modal } >
           <Modal.Header>

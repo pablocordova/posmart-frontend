@@ -18,9 +18,9 @@ const loadProducts = () => {
 }
 
 const filterProducts = (string) => {
-  return({
+  return ({
     type: 'FILTER_PRODUCTS',
-    string: string 
+    string: string
   })
 }
 
@@ -32,4 +32,4 @@ const showDetailProduct = (state, selectedProduct) => {
   })
 }
 
-export { loadProducts, showDetailProduct, filterProducts } 
+export { loadProducts, showDetailProduct, filterProducts }
