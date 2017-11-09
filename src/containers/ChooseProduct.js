@@ -56,7 +56,10 @@ class ChooseProduct extends Component {
           <p className = 'sample-prices'>Caja: S./1250</p>
         </div>
         <MuiThemeProvider>
-          <Table onCellClick = { () => this.props.showDetailProduct(true) }>
+          <Table onCellClick = { (row) => {
+              this.props.showDetailProduct(true, this.props.productsFiltered[row])
+            }
+          }>
             <TableBody
               displayRowCheckbox = { false }
             >
@@ -94,8 +97,8 @@ const mapDispatchToProps = dispatch => {
     loadProducts() {
       dispatch(loadProducts())
     },
-    showDetailProduct(state) {
-      dispatch(showDetailProduct(state))
+    showDetailProduct(state, selectedProduct) {
+      dispatch(showDetailProduct(state, selectedProduct))
     },
     filterProducts(string) {
       dispatch(filterProducts(string))

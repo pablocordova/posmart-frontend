@@ -10,6 +10,9 @@ class DetailProduct extends Component {
     return(
       <div>
         <Modal show = { this.props.modal } >
+          <Modal.Header>
+            <Modal.Title> { this.props.selectedProduct.name } </Modal.Title>
+          </Modal.Header>
           <Modal.Body>
             <form>
               <FormGroup>
@@ -35,8 +38,8 @@ class DetailProduct extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick = { () => this.props.showDetailProduct(false) }>Close</Button>
-            <Button bsStyle = 'primary'>Save</Button>
+            <Button onClick = { () => this.props.showDetailProduct(false, '') }>Cancelar</Button>
+            <Button bsStyle = 'primary'>OK</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -47,14 +50,15 @@ class DetailProduct extends Component {
 
 const mapStateToProps = state => {
   return {
-    modal: state.modal
+    modal: state.modal,
+    selectedProduct: state.selectedProduct
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    showDetailProduct(show) {
-      dispatch(showDetailProduct(show))
+    showDetailProduct(show, selectedProduct) {
+      dispatch(showDetailProduct(show, selectedProduct))
     }
   }
 }

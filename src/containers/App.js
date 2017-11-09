@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 import { Nav, Navbar, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 import Sale from '../components/Sale'
 import Setting from '../components/Setting' 
+import ListProducts from '../containers/ListProducts'
 
 class App extends Component {
 
@@ -16,16 +17,16 @@ class App extends Component {
             <Navbar.Header>
               <Navbar.Brand>
                 <a href='/'>POSMART</a>
-              </Navbar.Brand>
+              </Navbar.Brand> 
               <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav pullRight>
                 <LinkContainer to = '/sale'> 
-                  <NavItem eventKey = {1}>Venta</NavItem>
+                  <NavItem eventKey = {2}>Venta</NavItem>
                 </LinkContainer>
                 <LinkContainer to = '/Setting'>
-                  <NavItem eventKey = {2}>Configuración</NavItem>
+                  <NavItem eventKey = {3}>Configuración</NavItem>
                 </LinkContainer>
               </Nav>
             </Navbar.Collapse>
@@ -33,6 +34,7 @@ class App extends Component {
 
           <Route path = '/sale' component = { Sale } />
           <Route path = '/setting' component = { Setting } />
+          <Route path = '/listProducts' component = { ListProducts } />
         </div>
       </BrowserRouter>
     )

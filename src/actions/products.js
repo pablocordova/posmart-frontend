@@ -24,10 +24,11 @@ const filterProducts = (string) => {
   })
 }
 
-const showDetailProduct = (state) => {
+const showDetailProduct = (state, selectedProduct) => {
   return ({
     type: 'SHOW_DETAIL_PRODUCT',
-    modal: state
+    modal: state,
+    selectedProduct: selectedProduct
   })
 }
 
