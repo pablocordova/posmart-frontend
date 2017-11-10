@@ -1,4 +1,4 @@
-const reducer = (
+const products = (
   state = {
     products: [],
     modal: false,
@@ -34,4 +34,4 @@ const reducer = (
 
 }
 
-export default reducer
+export default products

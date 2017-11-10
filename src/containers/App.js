@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { Nav, Navbar, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
+import Client from '../containers/Client'
 import Sale from '../components/Sale'
 import Setting from '../components/Setting'
 import ListProducts from '../containers/ListProducts'
@@ -32,6 +33,7 @@ class App extends Component {
             </Navbar.Collapse>
           </Navbar>
 
+          <Route path = '/client' component = { Client } />
           <Route path = '/sale' component = { Sale } />
           <Route path = '/setting' component = { Setting } />
           <Route path = '/listProducts' component = { ListProducts } />

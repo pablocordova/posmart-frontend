@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import { FormGroup, FormControl } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table'
+import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import DetailProduct from './DetailProduct'
@@ -84,8 +79,8 @@ class ChooseProduct extends Component {
 const mapStateToProps = state => {
   console.log(state)
   return {
-    products: state.products,
-    productsFiltered: state.productsFiltered
+    products: state.products.products,
+    productsFiltered: state.products.productsFiltered
   }
 }
 

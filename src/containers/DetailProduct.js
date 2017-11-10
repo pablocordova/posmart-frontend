@@ -50,8 +50,8 @@ class DetailProduct extends Component {
 
 const mapStateToProps = state => {
   return {
-    modal: state.modal,
-    selectedProduct: state.selectedProduct
+    modal: state.products.modal,
+    selectedProduct: state.products.selectedProduct
   }
 }
 

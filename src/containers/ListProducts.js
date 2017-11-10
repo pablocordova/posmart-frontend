@@ -4,17 +4,17 @@ import { connect } from 'react-redux'
 class ListProducts extends Component {
 
   render() {
-    return(
+    return (
       <div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
-      <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
+        <div>Hello List Products</div>
       </div>
     )
   }
