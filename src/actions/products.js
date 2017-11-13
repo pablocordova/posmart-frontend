@@ -3,6 +3,8 @@ import axios from 'axios'
 const SERVER_PATH = 'http://192.168.5.6:3000/'
 const GET_PRODUCTS_PATH = 'products'
 
+axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('token')
+
 const loadProducts = () => {
 
   return dispatch => {
