@@ -41,7 +41,7 @@ class Sale extends Component {
             </Col>
             <MediaQuery minDeviceWidth = { 768 }>
               <MuiThemeProvider>
-                <Col sm = { 4 }>
+                <Col sm = { 8 }>
                   <RaisedButton secondary = { true }>
                     <Link to = '/client'>Clientes</Link>
                   </RaisedButton>

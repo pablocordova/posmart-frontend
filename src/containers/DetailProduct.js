@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { showDetailProduct } from '../actions/products'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import { addProductToSale } from '../actions/sale'
 
 class DetailProduct extends Component {
 
@@ -39,7 +40,9 @@ class DetailProduct extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick = { () => this.props.showDetailProduct(false, '') }>Cancelar</Button>
-            <Button bsStyle = 'primary'>OK</Button>
+            <Button bsStyle = 'primary' onClick = { () =>
+              this.props.addProductToSale(this.props.selectedProduct)
+            }>OK</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -59,6 +62,9 @@ const mapDispatchToProps = dispatch => {
   return {
     showDetailProduct(show, selectedProduct) {
       dispatch(showDetailProduct(show, selectedProduct))
+    },
+    addProductToSale(selectedProduct) {
+      dispatch(addProductToSale(selectedProduct))
     }
   }
 }

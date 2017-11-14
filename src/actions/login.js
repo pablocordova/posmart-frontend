@@ -1,12 +1,11 @@
 import axios from 'axios'
 
-const SERVER_PATH = 'http://192.168.5.6:3000/'
-const LOGIN_PATH = 'login'
+const LOGIN_PATH = '/login'
 
 const login = (email, pass) => {
 
   return () => {
-    return axios.post(SERVER_PATH + LOGIN_PATH, {
+    return axios.post(process.env.REACT_APP_SERVER_PATH + LOGIN_PATH, {
       email: email,
       password: pass
     })
