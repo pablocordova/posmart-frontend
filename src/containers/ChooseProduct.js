@@ -41,15 +41,10 @@ class ChooseProduct extends Component {
               type = 'text'
               value = { this.state.textProduct }
               placeholder = 'Buscar Producto'
-              onChange = { string => this.filterProductss(string) }
+              onChange = { e =>this.filterProductss(e) }
             />
           </FormGroup>
         </form>
-        <div className = 'block-sample-prices'>
-          <p className = 'sample-prices'>Unidad: S./12</p>
-          <p className = 'sample-prices'>Docena: S./144</p>
-          <p className = 'sample-prices'>Caja: S./1250</p>
-        </div>
         <MuiThemeProvider>
           <Table onCellClick = { (row) => {
             this.props.showDetailProduct(true, this.props.productsFiltered[row])
@@ -61,8 +56,25 @@ class ChooseProduct extends Component {
                 this.props.productsFiltered.map(product => {
                   return (
                     <TableRow key = { product._id } >
-                      <TableRowColumn>{ product.picture }</TableRowColumn>
-                      <TableRowColumn>{ product.name }</TableRowColumn>
+                      {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
+                      <TableRowColumn>
+                        { product.name }
+                        <div className = 'block-sample-prices'>
+                          {
+                            product.prices.map((entry, index) => {
+                              return (
+                                <div className = 'sample-prices' key = { index }>
+                                  { entry.quantity }
+                                  { ' ' }
+                                  { entry.name }
+                                  { ': S./'}
+                                  { entry.price }
+                                </div>
+                              )
+                            })
+                          }
+                        </div>
+                      </TableRowColumn>
                     </TableRow>
                   )
                 })

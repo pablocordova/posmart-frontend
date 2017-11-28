@@ -7,7 +7,8 @@ const login = (email, pass) => {
   return () => {
     return axios.post(process.env.REACT_APP_SERVER_PATH + LOGIN_PATH, {
       email: email,
-      password: pass
+      password: pass,
+      type: 'APP'
     })
       .then(response => {
         if (typeof response.data.token !== 'undefined') {

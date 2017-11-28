@@ -4,6 +4,14 @@ const GET_PRODUCTS_PATH = '/products'
 
 axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('token')
 
+const calculateSaleProduct = (amount, price) => {
+  return ({
+    type: 'CALCULATE_SALE_PRODUCT',
+    amount,
+    price
+  })
+}
+
 const loadProducts = () => {
 
   return dispatch => {
@@ -33,4 +41,11 @@ const showDetailProduct = (state, selectedProduct) => {
   })
 }
 
-export { loadProducts, showDetailProduct, filterProducts }
+const hideDetailProduct = () => {
+  return ({
+    type: 'HIDE_DETAIL_PRODUCT',
+    modal: false
+  })
+}
+
+export { loadProducts, showDetailProduct, filterProducts, hideDetailProduct, calculateSaleProduct }

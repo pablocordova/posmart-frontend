@@ -1,14 +1,17 @@
 .sample-prices {
-  display: inline;
+  display: inline-block;
   background-color: green;
-  margin-right: 7px;
+  /*margin-right: 7px;*/
   color: white;
   padding: 2px 4px 2px 4px;
   border-radius: 5px;
+  text-align: left;
+  margin-right: 1%;
 }
 
 .block-sample-prices {
-  text-align: center;
+  /*text-align: center;*/
+  margin: 15px auto;
 }
 
 .products-table {
@@ -21,4 +24,8 @@
 
 .description-product {
   width: 60%;
+}
+
+.rightText {
+  text-align: right;
 }

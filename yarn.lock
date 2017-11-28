@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/react@*":
+  version "16.0.25"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.25.tgz#bf696b83fe480c5e0eff4335ee39ebc95884a1ed"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -5243,6 +5247,13 @@ react-event-listener@^0.5.1:
     fbjs "^0.8.16"
     prop-types "^15.6.0"
     warning "^3.0.0"
+
+react-google-login@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-3.0.2.tgz#b08752e0ba0bb334ae5580ed8acd4c6dadb823a8"
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
 
 react-overlays@^0.7.4:
   version "0.7.4"
