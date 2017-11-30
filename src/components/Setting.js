@@ -2,21 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
-import { getTokenGoogle, getPrinterData } from '../actions/settings'
-
-
+import { getPrinterData } from '../actions/settings'
 
 class Setting extends Component {
 
   render() {
     return (
       <div>
-        <Button
-          bsStyle = "primary"
-          onClick = { () => this.props.getTokenGoogle() }
-        >
-          Login
-        </Button>
         <Button
           bsStyle = "primary"
           onClick = { () => this.props.getPrinterData() }
@@ -39,9 +31,6 @@ const mapDispatchToProps = dispatch => {
   return {
     getPrinterData() {
       dispatch(getPrinterData())
-    },
-    getTokenGoogle() {
-      dispatch(getTokenGoogle())
     }
   }
 }
