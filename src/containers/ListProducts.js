@@ -1,5 +1,5 @@
 
-// External Modules
+// -- External Modules
 
 // Main module
 import React, { Component } from 'react'
@@ -13,7 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import 'font-awesome/css/font-awesome.min.css';
 import './styles.css'
 
-// Own Modules
+// -- Own Modules
 import {
   deleteProductInSale,
   saveSale,
@@ -27,6 +27,7 @@ class ListProducts extends Component {
       <MuiThemeProvider>
         <div>
           <h2>NOTA DE VENTA</h2>
+          <h4>{ this.props.clientNameForSale }</h4>
           <RaisedButton
             label = 'GUARDAR E IMPRIMIR'
             primary = { true }
@@ -98,7 +99,9 @@ const mapStateToProps = state => {
   console.log(state.sale)
   return {
     productsSale: state.sale.productsSale,
-    totalSale: state.sale.totalSale
+    totalSale: state.sale.totalSale,
+    clientIDForSale: state.clients.clientIDForSale,
+    clientNameForSale: state.clients.clientNameForSale
   }
 }
 

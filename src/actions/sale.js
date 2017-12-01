@@ -1,3 +1,8 @@
+import axios from 'axios'
+
+const SALE_PATH = '/sale'
+const PRINT_PATH = '/print'
+
 const addProductToSale = (
   selectedProduct,
   amountProduct,
@@ -23,17 +28,48 @@ const deleteProductInSale = (indexProductInSale) => {
 }
 
 const saveSale = (productsSale) => {
-  return ({
-    type: 'SAVE_SALE',
-    productsSale
-  })
+
+  return () => {
+    return axios.post(process.env.REACT_APP_SERVER_PATH + SALE_PATH, {
+      productsSale: productsSale
+    })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
 }
 
 const saveAndPrintSale = (productsSale) => {
-  return ({
-    type: 'SAVE_AND_PRINT_SALE',
-    productsSale
-  })
+
+  return () => {
+    return axios.post(process.env.REACT_APP_SERVER_PATH + SALE_PATH, {
+      productsSale: productsSale
+    })
+      .then(response => {
+        console.log(response)
+        // I need to pass id of sale to print
+        // PRINT
+        /*
+        axios.post(process.env.REACT_APP_SERVER_PATH + PRINT_PATH, {
+          productsSale: productsSale
+        })
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        */
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
 }
 
 export {
