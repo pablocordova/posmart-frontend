@@ -6,10 +6,11 @@ const sale = ( state = {
   switch (action.type) {
     case 'ADD_PRODUCT_TO_SALE': {
       const objProductSale = {
-        id: action.selectedProduct._id,
+        product: action.selectedProduct._id,
         name: action.selectedProduct.name,
-        amount: action.amountProduct,
+        quantity: action.amountProduct,
         unit: action.unitChosen,
+        priceIndex: action.indexChosen,
         price: action.priceUnitWithDiscount,
         total: action.totalProduct
       }

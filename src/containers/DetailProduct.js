@@ -57,7 +57,10 @@ class DetailProduct extends Component {
                       e.target.value,
                       this.props.discountProduct
                     )
-                    this.props.saveUnitChosen(e.target.selectedOptions[0].innerText)
+                    this.props.saveUnitChosen(
+                      e.target.selectedOptions[0].innerText,
+                      e.target.selectedOptions[0].index
+                    )
                   }}
                 >
                   {
@@ -101,6 +104,7 @@ class DetailProduct extends Component {
                 this.props.selectedProduct,
                 this.props.amountProduct,
                 this.props.unitChosen,
+                this.props.indexChosen,
                 this.props.priceProduct - this.props.discountProduct,
                 this.props.totalProduct
               )
@@ -121,6 +125,7 @@ const mapStateToProps = state => {
     selectedProduct: state.products.selectedProduct,
     amountProduct: state.products.amountProduct,
     unitChosen: state.products.unitChosen,
+    indexChosen: state.products.indexChosen,
     priceProduct: state.products.priceProduct,
     discountProduct: state.products.discountProduct,
     totalProduct: state.products.totalProduct
@@ -136,6 +141,7 @@ const mapDispatchToProps = dispatch => {
       selectedProduct,
       amountProduct,
       unitChosen,
+      indexChosen,
       priceUnitWithDiscount,
       totalProduct
     ) {
@@ -143,6 +149,7 @@ const mapDispatchToProps = dispatch => {
         selectedProduct,
         amountProduct,
         unitChosen,
+        indexChosen,
         priceUnitWithDiscount,
         totalProduct
       ))
@@ -150,8 +157,8 @@ const mapDispatchToProps = dispatch => {
     calculateSaleProduct(amount, price, discount) {
       dispatch(calculateSaleProduct(amount, price, discount))
     },
-    saveUnitChosen(unitChosen) {
-      dispatch(saveUnitChosen(unitChosen))
+    saveUnitChosen(unitChosen, indexChosen) {
+      dispatch(saveUnitChosen(unitChosen, indexChosen))
     }
   }
 }

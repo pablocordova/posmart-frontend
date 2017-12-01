@@ -32,20 +32,21 @@ class ListProducts extends Component {
             label = 'GUARDAR E IMPRIMIR'
             primary = { true }
             onClick = { () =>
-              this.props.saveAndPrintSale(this.props.productsSale)
+              this.props.saveAndPrintSale(this.props.productsSale, this.props.clientIDForSale)
             }
           ></RaisedButton>
           <RaisedButton
             label = 'GUARDAR'
             primary = { true }
             onClick = { () =>
-              this.props.saveSale(this.props.productsSale)
+              this.props.saveSale(this.props.productsSale, this.props.clientIDForSale)
             }
           ></RaisedButton>
           <h1>TOTAL: { this.props.totalSale }</h1>
           <Table responsive>
             <thead>
               <tr>
+                <th hidden></th>
                 <th hidden></th>
                 <th>Cant</th>
                 <th>Unid</th>
@@ -60,9 +61,10 @@ class ListProducts extends Component {
                 this.props.productsSale.map((product, index) => {
                   return (
                     <tr key = { index }>
-                      <td hidden = { true }>{ product.id }</td>
+                      <td hidden = { true }>{ product.product }</td>
+                      <td hidden = { true }>{ product.priceIndex }</td>
                       <td>
-                        { product.amount }
+                        { product.quantity }
                       </td>
                       <td>
                         { product.unit }
@@ -110,11 +112,11 @@ const mapDispatchToProps = dispatch => {
     deleteProductInSale(index) {
       dispatch(deleteProductInSale(index))
     },
-    saveAndPrintSale(productsSale) {
-      dispatch(saveAndPrintSale(productsSale))
+    saveAndPrintSale(productsSale, clientID) {
+      dispatch(saveAndPrintSale(productsSale, clientID))
     },
-    saveSale(productsSale) {
-      dispatch(saveSale(productsSale))
+    saveSale(productsSale, clientID) {
+      dispatch(saveSale(productsSale, clientID))
     }
   }
 }

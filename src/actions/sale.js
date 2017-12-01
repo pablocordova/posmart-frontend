@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-const SALE_PATH = '/sale'
+const SALE_PATH = '/sales'
 const PRINT_PATH = '/print'
 
 const addProductToSale = (
   selectedProduct,
   amountProduct,
   unitChosen,
+  indexChosen,
   priceUnitWithDiscount,
   totalProduct
 ) => {
@@ -15,6 +16,7 @@ const addProductToSale = (
     selectedProduct,
     amountProduct,
     unitChosen,
+    indexChosen,
     priceUnitWithDiscount,
     totalProduct
   })
@@ -27,12 +29,21 @@ const deleteProductInSale = (indexProductInSale) => {
   })
 }
 
-const saveSale = (productsSale) => {
+const saveSale = (productsSale, clientID) => {
 
   return () => {
-    return axios.post(process.env.REACT_APP_SERVER_PATH + SALE_PATH, {
-      productsSale: productsSale
-    })
+    return axios.post(
+      process.env.REACT_APP_SERVER_PATH + SALE_PATH,
+      {
+        client: clientID,
+        products: productsSale
+      },
+      {
+        headers: {
+          'Authorization': 'JWT ' + localStorage.getItem('token')
+        }
+      }
+    )
       .then(response => {
         console.log(response)
       })
@@ -43,11 +54,12 @@ const saveSale = (productsSale) => {
 
 }
 
-const saveAndPrintSale = (productsSale) => {
+const saveAndPrintSale = (productsSale, clientID) => {
 
   return () => {
     return axios.post(process.env.REACT_APP_SERVER_PATH + SALE_PATH, {
-      productsSale: productsSale
+      client: clientID,
+      products: productsSale
     })
       .then(response => {
         console.log(response)

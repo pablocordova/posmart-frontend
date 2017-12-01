@@ -54,10 +54,11 @@ const hideDetailProduct = () => {
   })
 }
 
-const saveUnitChosen = (unitChosen) => {
+const saveUnitChosen = (unitChosen, indexChosen) => {
   return ({
     type: 'SAVE_UNIT_CHOSEN',
-    unitChosen
+    unitChosen,
+    indexChosen
   })
 }
 
