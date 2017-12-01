@@ -2,11 +2,12 @@ import axios from 'axios'
 
 const GET_PRODUCTS_PATH = '/products'
 
-const calculateSaleProduct = (amount, price) => {
+const calculateSaleProduct = (amount, price, discount) => {
   return ({
     type: 'CALCULATE_SALE_PRODUCT',
     amount,
-    price
+    price,
+    discount
   })
 }
 
@@ -53,4 +54,18 @@ const hideDetailProduct = () => {
   })
 }
 
-export { loadProducts, showDetailProduct, filterProducts, hideDetailProduct, calculateSaleProduct }
+const saveUnitChosen = (unitChosen) => {
+  return ({
+    type: 'SAVE_UNIT_CHOSEN',
+    unitChosen
+  })
+}
+
+export {
+  calculateSaleProduct,
+  filterProducts,
+  hideDetailProduct,
+  loadProducts,
+  saveUnitChosen,
+  showDetailProduct
+}

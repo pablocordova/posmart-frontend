@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { hideDetailProduct, calculateSaleProduct } from '../actions/products'
+import { hideDetailProduct, calculateSaleProduct, saveUnitChosen } from '../actions/products'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import { addProductToSale } from '../actions/sale'
 
@@ -39,7 +39,11 @@ class DetailProduct extends Component {
                   type = 'number'
                   defaultValue = { 1 }
                   onChange = { (e) =>
-                    this.props.calculateSaleProduct(e.target.value, this.props.priceProduct)
+                    this.props.calculateSaleProduct(
+                      e.target.value,
+                      this.props.priceProduct,
+                      this.props.discountProduct
+                    )
                   }
                 />
               </FormGroup>
@@ -47,36 +51,62 @@ class DetailProduct extends Component {
                 <ControlLabel>Medida</ControlLabel>
                 <FormControl
                   componentClass = 'select'
-                  onChange = { e =>
-                    this.props.calculateSaleProduct(this.props.amountProduct, e.target.value)
-                  }
+                  onChange = { e => {
+                    this.props.calculateSaleProduct(
+                      this.props.amountProduct,
+                      e.target.value,
+                      this.props.discountProduct
+                    )
+                    this.props.saveUnitChosen(e.target.selectedOptions[0].innerText)
+                  }}
                 >
                   {
                     this.props.selectedProduct.prices.map(price => {
                       return (
-                        <option value = { price.price } key = { price.name }>{ price.name }</option>
+                        <option
+                          value = { price.price }
+                          key = { price.name }
+                        >
+                          { price.name }
+                        </option>
                       )
                     })
                   }
                 </FormControl>
               </FormGroup>
               <FormGroup>
-                <ControlLabel>Descuento</ControlLabel>
+                <ControlLabel>Descuento unitario</ControlLabel>
                 <FormControl
                   type = 'number'
+                  defaultValue = { 0 }
+                  onChange = { (e) =>
+                    this.props.calculateSaleProduct(
+                      this.props.amountProduct,
+                      this.props.priceProduct,
+                      e.target.value
+                    )
+                  }
                 />
               </FormGroup>
               <FormGroup className = 'rightText'>
                 <ControlLabel>Total</ControlLabel>
-                <ControlLabel>S./{this.props.totalProduct}</ControlLabel>
+                <ControlLabel>S./{ this.props.totalProduct }</ControlLabel>
               </FormGroup>
             </form>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick = { () => this.props.hideDetailProduct() }>Cancelar</Button>
-            <Button bsStyle = 'primary' onClick = { () =>
-              this.props.addProductToSale(this.props.selectedProduct)
-            }>OK</Button>
+            <Button bsStyle = 'primary' onClick = { () => {
+              this.props.addProductToSale(
+                this.props.selectedProduct,
+                this.props.amountProduct,
+                this.props.unitChosen,
+                this.props.priceProduct - this.props.discountProduct,
+                this.props.totalProduct
+              )
+              this.props.hideDetailProduct()
+            }}
+            >OK</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -90,7 +120,9 @@ const mapStateToProps = state => {
     modal: state.products.modal,
     selectedProduct: state.products.selectedProduct,
     amountProduct: state.products.amountProduct,
+    unitChosen: state.products.unitChosen,
     priceProduct: state.products.priceProduct,
+    discountProduct: state.products.discountProduct,
     totalProduct: state.products.totalProduct
   }
 }
@@ -100,11 +132,26 @@ const mapDispatchToProps = dispatch => {
     hideDetailProduct() {
       dispatch(hideDetailProduct())
     },
-    addProductToSale(selectedProduct) {
-      dispatch(addProductToSale(selectedProduct))
+    addProductToSale(
+      selectedProduct,
+      amountProduct,
+      unitChosen,
+      priceUnitWithDiscount,
+      totalProduct
+    ) {
+      dispatch(addProductToSale(
+        selectedProduct,
+        amountProduct,
+        unitChosen,
+        priceUnitWithDiscount,
+        totalProduct
+      ))
     },
-    calculateSaleProduct(amount, price) {
-      dispatch(calculateSaleProduct(amount, price))
+    calculateSaleProduct(amount, price, discount) {
+      dispatch(calculateSaleProduct(amount, price, discount))
+    },
+    saveUnitChosen(unitChosen) {
+      dispatch(saveUnitChosen(unitChosen))
     }
   }
 }

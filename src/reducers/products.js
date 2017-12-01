@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const products = (
   state = {
     products: [],
@@ -6,9 +8,11 @@ const products = (
     amountProduct: '1',
     priceProduct: '',
     totalProduct: '',
+    discountProduct: '',
     selectedProduct: {
       prices: []
-    }
+    },
+    unitChosen: ''
   },
   action
 ) => {
@@ -16,12 +20,15 @@ const products = (
   switch (action.type) {
     case 'CALCULATE_SALE_PRODUCT':
     {
-      const total = parseFloat(action.amount) * parseFloat(action.price)
+      let total = parseFloat(action.amount) * parseFloat(action.price) -
+        parseFloat(action.amount) * parseFloat(action.discount)
+      total = _.round(total, 1)
       return {
         ...state,
         totalProduct: total,
         amountProduct: action.amount,
-        priceProduct: action.price
+        priceProduct: action.price,
+        discountProduct: action.discount
       }
     }
     case 'LOAD_PRODUCTS':
@@ -31,14 +38,15 @@ const products = (
         productsFiltered: action.products
       }
     case 'SHOW_DETAIL_PRODUCT':
-      console.log('show detail product')
-      console.log(action.selectedProduct)
       return {
         ...state,
+        amountProduct: '1',
         modal: action.modal,
         selectedProduct: action.selectedProduct,
         priceProduct: action.selectedProduct.prices[0].price,
-        totalProduct: parseFloat(action.selectedProduct.prices[0].price)
+        totalProduct: parseFloat(action.selectedProduct.prices[0].price),
+        discountProduct: 0,
+        unitChosen: action.selectedProduct.prices[0].name
       }
     case 'FILTER_PRODUCTS':
       return {
@@ -51,6 +59,13 @@ const products = (
       return {
         ...state,
         modal: action.modal
+      }
+    case 'SAVE_UNIT_CHOSEN':
+      console.log('saving unit chosen')
+      console.log(action.unitChosen)
+      return {
+        ...state,
+        unitChosen: action.unitChosen
       }
     default:
       return state

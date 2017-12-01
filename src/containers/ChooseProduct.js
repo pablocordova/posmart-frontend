@@ -89,7 +89,6 @@ class ChooseProduct extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     products: state.products.products,
     productsFiltered: state.products.productsFiltered
