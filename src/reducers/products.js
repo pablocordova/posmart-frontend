@@ -32,12 +32,16 @@ const products = (
         discountProduct: action.discount
       }
     }
-    case 'LOAD_PRODUCTS':
+    case 'LOAD_PRODUCTS': {
+      let productsWithPrices = action.products.filter(product => {
+        return product.prices.length > 0
+      })
       return {
         ...state,
-        products: action.products,
-        productsFiltered: action.products
+        products: productsWithPrices,
+        productsFiltered: productsWithPrices
       }
+    }
     case 'SHOW_DETAIL_PRODUCT':
       return {
         ...state,
