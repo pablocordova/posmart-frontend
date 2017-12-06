@@ -6,6 +6,12 @@ const sale = ( state = {
 }, action) => {
 
   switch (action.type) {
+    case 'CLEAR_DATA_SALE':
+      return {
+        ...state,
+        productsSale: [],
+        totalSale: 0
+      }
     case 'ADD_PRODUCT_TO_SALE': {
       const objProductSale = {
         product: action.selectedProduct._id,

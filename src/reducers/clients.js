@@ -52,6 +52,12 @@ const clients = (
           return e.firstname.toLowerCase().indexOf(action.textClientSearcher.toLowerCase()) !== -1
         })
       }
+    case 'RESET_CLIENT':
+      return {
+        ...state,
+        clientIDForSale: state.clients[0]._id,
+        clientNameForSale: state.clients[0].firstname
+      }
     case 'SHOW_CREATE_CLIENT':
       return {
         ...state,

@@ -62,6 +62,12 @@ const loadClients = () => {
   }
 }
 
+const resetClient = () => {
+  return ({
+    type: 'RESET_CLIENT'
+  })
+}
+
 const showCreateClient = () => {
   return ({
     type: 'SHOW_CREATE_CLIENT'
@@ -98,6 +104,7 @@ export {
   filterClients,
   hideClientForm,
   loadClients,
+  resetClient,
   showCreateClient,
   showModifyClient,
   updateClient

@@ -23,6 +23,12 @@ const addProductToSale = (
   })
 }
 
+const clearDataSale = () => {
+  return ({
+    type: 'CLEAR_DATA_SALE'
+  })
+}
+
 const deleteProductInSale = (indexProductInSale) => {
   return ({
     type: 'DELETE_PRODUCT_IN_SALE',
@@ -101,6 +107,7 @@ const saveAndPrintSale = (productsSale, clientID) => {
 
 export {
   addProductToSale,
+  clearDataSale,
   deleteProductInSale,
   saveSale,
   saveAndPrintSale

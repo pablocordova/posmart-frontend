@@ -18,12 +18,16 @@ import './styles.css'
 
 // -- Own Modules
 import {
+  clearDataSale,
   deleteProductInSale,
   saveSale,
   saveAndPrintSale
 } from '../actions/sale'
 
-import { loadClients } from '../actions/clients'
+import {
+  loadClients,
+  resetClient
+} from '../actions/clients'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -53,16 +57,20 @@ class ListProducts extends Component {
                     marginRight: 12
                   }
                 }
-                onClick = { () =>
+                onClick = { () => {
+                  this.props.clearDataSale()
+                  this.props.resetClient()
                   this.props.saveAndPrintSale(this.props.productsSale, this.props.clientIDForSale)
-                }
+                }}
               ></RaisedButton>
               <RaisedButton
                 label = 'GUARDAR'
                 secondary = { true }
-                onClick = { () =>
+                onClick = { () => {
+                  this.props.clearDataSale()
+                  this.props.resetClient()
                   this.props.saveSale(this.props.productsSale, this.props.clientIDForSale)
-                }
+                }}
               ></RaisedButton>
             </div>
           </div>
@@ -142,11 +150,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    clearDataSale() {
+      dispatch(clearDataSale())
+    },
     deleteProductInSale(index) {
       dispatch(deleteProductInSale(index))
     },
     loadClients() {
       dispatch(loadClients())
+    },
+    resetClient() {
+      dispatch(resetClient())
     },
     saveAndPrintSale(productsSale, clientID) {
       dispatch(saveAndPrintSale(productsSale, clientID))
