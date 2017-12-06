@@ -29,3 +29,33 @@
 .rightText {
   text-align: right;
 }
+
+.receipt-title {
+  display: inline-block;
+  margin: 0 0 0 0;
+}
+
+.receipt-title-buttons {
+  display: inline-block;
+}
+
+.link-clients {
+  color: white;
+}
+
+.link-clients:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.client-label {
+  margin-right: 40px;
+}
+
+.total-label {
+  text-align: right;
+}

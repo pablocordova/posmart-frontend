@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const sale = ( state = {
   productsSale: [],
   totalSale: 0
@@ -11,13 +13,13 @@ const sale = ( state = {
         quantity: action.amountProduct,
         unit: action.unitChosen,
         priceIndex: action.indexChosen,
-        price: action.priceUnitWithDiscount,
-        total: action.totalProduct
+        price: _.round(action.priceUnitWithDiscount, 1),
+        total: _.round(action.totalProduct, 1)
       }
       return {
         ...state,
         productsSale: state.productsSale.concat(objProductSale),
-        totalSale: state.totalSale + action.totalProduct
+        totalSale: _.round(state.totalSale + action.totalProduct, 1)
       }
     }
     case 'DELETE_PRODUCT_IN_SALE': {

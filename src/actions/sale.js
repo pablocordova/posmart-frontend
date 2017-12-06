@@ -74,9 +74,17 @@ const saveAndPrintSale = (productsSale, clientID) => {
         console.log(response)
         // I need to pass id of sale to print
         // PRINT
-        axios.post(process.env.REACT_APP_SERVER_PATH + SETTINGS_PATH + PRINT_PATH, {
-          saleID: response.data.result._id
-        })
+        axios.post(
+          process.env.REACT_APP_SERVER_PATH + SETTINGS_PATH + PRINT_PATH,
+          {
+            saleID: response.data.result._id
+          },
+          {
+            headers: {
+              'Authorization': 'JWT ' + localStorage.getItem('token')
+            }
+          }
+        )
           .then(res => {
             console.log(res)
           })

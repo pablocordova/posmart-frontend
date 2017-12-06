@@ -34,11 +34,11 @@ import {
 import FormClient from './FormClient'
 
 class Client extends Component {
-
+  /*
   componentDidMount() {
     this.props.loadClients()
   }
-
+  */
   render() {
     return (
       <div>

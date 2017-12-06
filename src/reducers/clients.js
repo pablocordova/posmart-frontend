@@ -27,12 +27,19 @@ const clients = (
         clientIDForSale: state.clientsFiltered[action.indexClientFiltered]._id,
         clientNameForSale: state.clientsFiltered[action.indexClientFiltered].firstname
       }
-    case 'LOAD_CLIENTS':
-      return {
+    case 'LOAD_CLIENTS': {
+      // Check by default clients
+      let initialState = {
         ...state,
         clients: action.clients,
         clientsFiltered: action.clients
       }
+      if (state.clientIDForSale === '') {
+        initialState['clientIDForSale'] = action.clients[0]._id
+        initialState['clientNameForSale'] = action.clients[0].firstname
+      }
+      return initialState
+    }
     case 'HIDE_CLIENT_FORM':
       return {
         ...state,

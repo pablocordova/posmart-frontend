@@ -34,7 +34,7 @@ class ChooseProduct extends Component {
 
     return (
       <div>
-        <h3>PRODUCTO</h3>
+        <h2>PRODUCTO</h2>
         <form>
           <FormGroup>
             <FormControl
@@ -58,7 +58,7 @@ class ChooseProduct extends Component {
                     <TableRow key = { product._id } >
                       {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
                       <TableRowColumn>
-                        { product.name }
+                        <h4>{ product.name }</h4>
                         <div className = 'block-sample-prices'>
                           {
                             product.prices.map((entry, index) => {

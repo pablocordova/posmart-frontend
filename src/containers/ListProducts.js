@@ -4,9 +4,12 @@
 // Main module
 import React, { Component } from 'react'
 // Other modules
+import { indigo500, grey500 } from 'material-ui/styles/colors';
 import { Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -20,76 +23,106 @@ import {
   saveAndPrintSale
 } from '../actions/sale'
 
+import { loadClients } from '../actions/clients'
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: indigo500,
+    accent1Color: grey500
+  }
+});
+
 class ListProducts extends Component {
+
+  componentDidMount() {
+    this.props.loadClients()
+  }
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
-          <h2>NOTA DE VENTA</h2>
-          <h4>{ this.props.clientNameForSale }</h4>
-          <RaisedButton
-            label = 'GUARDAR E IMPRIMIR'
-            primary = { true }
-            onClick = { () =>
-              this.props.saveAndPrintSale(this.props.productsSale, this.props.clientIDForSale)
-            }
-          ></RaisedButton>
-          <RaisedButton
-            label = 'GUARDAR'
-            primary = { true }
-            onClick = { () =>
-              this.props.saveSale(this.props.productsSale, this.props.clientIDForSale)
-            }
-          ></RaisedButton>
-          <h1>TOTAL: { this.props.totalSale }</h1>
-          <Table responsive>
-            <thead>
-              <tr>
-                <th hidden></th>
-                <th hidden></th>
-                <th>Cant</th>
-                <th>Unid</th>
-                <th>Descripción</th>
-                <th>Unid</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                this.props.productsSale.map((product, index) => {
-                  return (
-                    <tr key = { index }>
-                      <td hidden = { true }>{ product.product }</td>
-                      <td hidden = { true }>{ product.priceIndex }</td>
-                      <td>
-                        { product.quantity }
-                      </td>
-                      <td>
-                        { product.unit }
-                      </td>
-                      <td>
-                        { product.name }
-                      </td>
-                      <td>
-                        { product.price }
-                      </td>
-                      <td>
-                        { product.total }
-                      </td>
-                      <td>
-                        <i className = 'fa fa-trash' id = { index } onClick = { (e) =>
-                          this.props.deleteProductInSale(e.target.id)
-                        }
-                        ></i>
-                      </td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </Table>
+          <div>
+            <h2 className = 'receipt-title'>NOTA DE VENTA</h2>
+            <div className = 'pull-right'>
+              <RaisedButton
+                label = 'GUARDAR E IMPRIMIR'
+                primary = { true }
+                style = {
+                  {
+                    marginRight: 12
+                  }
+                }
+                onClick = { () =>
+                  this.props.saveAndPrintSale(this.props.productsSale, this.props.clientIDForSale)
+                }
+              ></RaisedButton>
+              <RaisedButton
+                label = 'GUARDAR'
+                secondary = { true }
+                onClick = { () =>
+                  this.props.saveSale(this.props.productsSale, this.props.clientIDForSale)
+                }
+              ></RaisedButton>
+            </div>
+          </div>
+
+          <h4 className = 'inline-block client-label'>Cliente: { this.props.clientNameForSale }</h4>
+          <RaisedButton primary = { true } className = 'inline-block'>
+            <Link to = '/client' className = 'link-clients'>Clientes</Link>
+          </RaisedButton>
+          <div className = 'total-label'>
+            <h2>TOTAL: S/. { this.props.totalSale }</h2>
+          </div>
+          <div>
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th hidden></th>
+                  <th hidden></th>
+                  <th>Cant</th>
+                  <th>Unid</th>
+                  <th>Descripción</th>
+                  <th>Unid</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  this.props.productsSale.map((product, index) => {
+                    return (
+                      <tr key = { index }>
+                        <td hidden = { true }>{ product.product }</td>
+                        <td hidden = { true }>{ product.priceIndex }</td>
+                        <td>
+                          { product.quantity }
+                        </td>
+                        <td>
+                          { product.unit }
+                        </td>
+                        <td>
+                          { product.name }
+                        </td>
+                        <td>
+                          { product.price }
+                        </td>
+                        <td>
+                          { product.total }
+                        </td>
+                        <td>
+                          <i className = 'fa fa-trash' id = { index } onClick = { (e) =>
+                            this.props.deleteProductInSale(e.target.id)
+                          }
+                          ></i>
+                        </td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </Table>
+          </div>
         </div>
       </MuiThemeProvider>
     )
@@ -111,6 +144,9 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteProductInSale(index) {
       dispatch(deleteProductInSale(index))
+    },
+    loadClients() {
+      dispatch(loadClients())
     },
     saveAndPrintSale(productsSale, clientID) {
       dispatch(saveAndPrintSale(productsSale, clientID))

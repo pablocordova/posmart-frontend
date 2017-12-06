@@ -5,7 +5,6 @@ import { Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
 import ActionAndroid from 'material-ui/svg-icons/action/android'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
@@ -42,9 +41,6 @@ class Sale extends Component {
             <MediaQuery minDeviceWidth = { 768 }>
               <MuiThemeProvider>
                 <Col sm = { 8 }>
-                  <RaisedButton secondary = { true }>
-                    <Link to = '/client'>Clientes</Link>
-                  </RaisedButton>
                   <ListProducts />
                 </Col>
               </MuiThemeProvider>
