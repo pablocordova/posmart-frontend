@@ -70,9 +70,12 @@ class Client extends Component {
             <Row>
               <Col md = { 12 }>
                 <MuiThemeProvider>
-                  <Table onCellClick = { index => {
-                    this.props.clientToSale(index)
-                    this.props.history.push('/sale')
+                  <Table onCellClick = { (index, col) => {
+                    // No event when click in client options
+                    if (col !== 5) {
+                      this.props.clientToSale(index)
+                      this.props.history.push('/sale')
+                    }
                   }}>
                     <TableHeader displaySelectAll = { false } adjustForCheckbox = { false }>
                       <TableRow>
@@ -99,6 +102,15 @@ class Client extends Component {
                                   this.props.showModifyClient(e.target.id)
                                 }></i>
                                 <i className = 'fa fa-trash' id = { client._id } onClick = { e => {
+                                  // First make restriction case only exits 1 client
+                                  if (this.props.clients.length === 1) {
+                                    swal(
+                                      'Oops...',
+                                      'Debe existir al menos 1 cliente!',
+                                      'error'
+                                    )
+                                    return 0
+                                  }
                                   let deleteClientMethod = this.props.deleteClient
                                   let idClient = e.target.id
                                   swal({
@@ -138,6 +150,7 @@ class Client extends Component {
 
 const mapStateToProps = state => {
   return {
+    clients: state.clients.clients,
     clientsFiltered: state.clients.clientsFiltered
   }
 }

@@ -11,7 +11,14 @@ const clientToSale = (indexClientFiltered) => {
 
 const createClient = (client) => {
   return () => {
-    return axios.post(process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH, client)
+    return axios.post(
+      process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH, client,
+      {
+        headers: {
+          'Authorization': 'JWT ' + localStorage.getItem('token')
+        }
+      }
+    )
       .then(response => {
         console.log(response.data)
       })
@@ -20,7 +27,14 @@ const createClient = (client) => {
 
 const deleteClient = (idClient) => {
   return () => {
-    return axios.delete(process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH + '/' + idClient)
+    return axios.delete(
+      process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH + '/' + idClient,
+      {
+        headers: {
+          'Authorization': 'JWT ' + localStorage.getItem('token')
+        }
+      }
+    )
       .then(response => {
         console.log(response)
       })
