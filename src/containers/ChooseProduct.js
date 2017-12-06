@@ -46,9 +46,12 @@ class ChooseProduct extends Component {
           </FormGroup>
         </form>
         <MuiThemeProvider>
-          <Table onCellClick = { (row) => {
-            this.props.showDetailProduct(true, this.props.productsFiltered[row])
-          }}>
+          <Table
+            height = '450px'
+            onCellClick = { (row) => {
+              this.props.showDetailProduct(true, this.props.productsFiltered[row])
+            }}
+          >
             <TableBody
               displayRowCheckbox = { false }
             >
