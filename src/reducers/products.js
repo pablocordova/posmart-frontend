@@ -13,7 +13,8 @@ const products = (
       prices: []
     },
     unitChosen: '',
-    indexChosen: 0
+    indexChosen: 0,
+    unitsInPrice: 1
   },
   action
 ) => {
@@ -52,7 +53,8 @@ const products = (
         totalProduct: parseFloat(action.selectedProduct.prices[0].price),
         discountProduct: 0,
         unitChosen: action.selectedProduct.prices[0].name,
-        indexChosen: 0
+        indexChosen: 0,
+        unitsInPrice: action.selectedProduct.prices[0].items
       }
     case 'FILTER_PRODUCTS':
       return {
@@ -72,7 +74,8 @@ const products = (
       return {
         ...state,
         unitChosen: action.unitChosen,
-        indexChosen: action.indexChosen
+        indexChosen: action.indexChosen,
+        unitsInPrice: state.selectedProduct.prices[action.indexChosen].items
       }
     default:
       return state

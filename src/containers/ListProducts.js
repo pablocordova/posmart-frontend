@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
+import _ from 'lodash'
 
 import 'font-awesome/css/font-awesome.min.css';
 import './styles.css'
@@ -88,10 +89,10 @@ class ListProducts extends Component {
                 <tr>
                   <th hidden></th>
                   <th hidden></th>
-                  <th>Cant</th>
-                  <th>Unid</th>
+                  <th>Cant.</th>
+                  <th>Med.</th>
                   <th>Descripción</th>
-                  <th>Unid</th>
+                  <th>P.Unit</th>
                   <th>Total</th>
                   <th></th>
                 </tr>
@@ -113,7 +114,7 @@ class ListProducts extends Component {
                           { product.name }
                         </td>
                         <td>
-                          { product.price }
+                          { _.round(product.total / (product.unitsInPrice * product.quantity), 2) }
                         </td>
                         <td>
                           { product.total }

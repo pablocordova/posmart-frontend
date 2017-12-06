@@ -10,7 +10,8 @@ const addProductToSale = (
   unitChosen,
   indexChosen,
   priceUnitWithDiscount,
-  totalProduct
+  totalProduct,
+  unitsInPrice
 ) => {
   return ({
     type: 'ADD_PRODUCT_TO_SALE',
@@ -19,7 +20,8 @@ const addProductToSale = (
     unitChosen,
     indexChosen,
     priceUnitWithDiscount,
-    totalProduct
+    totalProduct,
+    unitsInPrice
   })
 }
 

@@ -20,7 +20,8 @@ const sale = ( state = {
         unit: action.unitChosen,
         priceIndex: action.indexChosen,
         price: _.round(action.priceUnitWithDiscount, 1),
-        total: _.round(action.totalProduct, 1)
+        total: _.round(action.totalProduct, 1),
+        unitsInPrice: action.unitsInPrice
       }
       return {
         ...state,

@@ -106,7 +106,8 @@ class DetailProduct extends Component {
                 this.props.unitChosen,
                 this.props.indexChosen,
                 this.props.priceProduct - this.props.discountProduct,
-                this.props.totalProduct
+                this.props.totalProduct,
+                this.props.unitsInPrice
               )
               this.props.hideDetailProduct()
             }}
@@ -128,7 +129,8 @@ const mapStateToProps = state => {
     indexChosen: state.products.indexChosen,
     priceProduct: state.products.priceProduct,
     discountProduct: state.products.discountProduct,
-    totalProduct: state.products.totalProduct
+    totalProduct: state.products.totalProduct,
+    unitsInPrice: state.products.unitsInPrice
   }
 }
 
@@ -143,7 +145,8 @@ const mapDispatchToProps = dispatch => {
       unitChosen,
       indexChosen,
       priceUnitWithDiscount,
-      totalProduct
+      totalProduct,
+      unitsInPrice
     ) {
       dispatch(addProductToSale(
         selectedProduct,
@@ -151,7 +154,8 @@ const mapDispatchToProps = dispatch => {
         unitChosen,
         indexChosen,
         priceUnitWithDiscount,
-        totalProduct
+        totalProduct,
+        unitsInPrice
       ))
     },
     calculateSaleProduct(amount, price, discount) {
