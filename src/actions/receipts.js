@@ -1,14 +1,13 @@
 import axios from 'axios'
 
-const GET_PRINTER_DATA_PATH = '/printerinfo'
-const SETTINGS_PATH = '/settings'
+const SALES_PATH = '/sales'
 
-const getPrinterData = () => {
+const getAllReceipts= () => {
 
   return () => {
 
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + SETTINGS_PATH + GET_PRINTER_DATA_PATH,
+      process.env.REACT_APP_SERVER_PATH + SALES_PATH,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -16,11 +15,11 @@ const getPrinterData = () => {
       }
     )
       .then(response => {
-        console.log('Printer info')
+        console.log('All receipts')
         console.log(response.data.result)
       })
   }
 
 }
 
-export { getPrinterData }
+export { getAllReceipts }

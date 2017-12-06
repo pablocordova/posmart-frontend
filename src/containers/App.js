@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 import Client from '../containers/Client'
 import Sale from '../components/Sale'
-import Setting from '../components/Setting'
+import Receipts from '../containers/Receipts'
 import ListProducts from '../containers/ListProducts'
 import Login from '../containers/Login'
 
@@ -43,8 +43,8 @@ class App extends Component {
           <LinkContainer to = '/sale'>
             <NavItem eventKey = {1}>Venta</NavItem>
           </LinkContainer>
-          <LinkContainer to = '/setting'>
-            <NavItem eventKey = {2}>Configuración</NavItem>
+          <LinkContainer to = '/receipts'>
+            <NavItem eventKey = {2}>Recibos</NavItem>
           </LinkContainer>
           <NavItem eventKey = {3} onClick = { this.logout }>Salir</NavItem>
         </Nav>
@@ -70,7 +70,7 @@ class App extends Component {
 
           <Route path = '/client' component = { Client } />
           <Route path = '/sale' component = { Sale } />
-          <Route path = '/setting' component = { Setting } />
+          <Route path = '/receipts' component = { Receipts } />
           <Route path = '/listProducts' component = { ListProducts } />
         </div>
       </BrowserRouter>
