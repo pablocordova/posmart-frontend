@@ -31,6 +31,12 @@ const clearDataSale = () => {
   })
 }
 
+const copyReceiptToSale = () => {
+  return ({
+    type: 'COPY_RECEIPT_TO_SALE'
+  })
+}
+
 const deleteProductInSale = (indexProductInSale) => {
   return ({
     type: 'DELETE_PRODUCT_IN_SALE',
@@ -110,6 +116,7 @@ const saveAndPrintSale = (productsSale, clientID) => {
 export {
   addProductToSale,
   clearDataSale,
+  copyReceiptToSale,
   deleteProductInSale,
   saveSale,
   saveAndPrintSale
