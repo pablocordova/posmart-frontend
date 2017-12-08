@@ -2,7 +2,8 @@ import _ from 'lodash'
 
 const sale = ( state = {
   productsSale: [],
-  totalSale: 0
+  totalSale: 0,
+  disabledButton: true
 }, action) => {
 
   switch (action.type) {
@@ -10,7 +11,8 @@ const sale = ( state = {
       return {
         ...state,
         productsSale: [],
-        totalSale: 0
+        totalSale: 0,
+        disabledButton: true
       }
     case 'COPY_RECEIPT_TO_SALE': {
 
@@ -35,7 +37,8 @@ const sale = ( state = {
       return {
         ...state,
         productsSale: products,
-        totalSale: sale.total
+        totalSale: sale.total,
+        disabledButton: false
       }
     }
     case 'ADD_PRODUCT_TO_SALE': {
@@ -52,16 +55,22 @@ const sale = ( state = {
       return {
         ...state,
         productsSale: state.productsSale.concat(objProductSale),
-        totalSale: _.round(state.totalSale + action.totalProduct, 1)
+        totalSale: _.round(state.totalSale + action.totalProduct, 1),
+        disabledButton: false
       }
     }
     case 'DELETE_PRODUCT_IN_SALE': {
+      let disabled = false
+      if (state.productsSale.length === 1) {
+        disabled = true
+      }
       return {
         ...state,
         totalSale: state.totalSale - state.productsSale[action.indexProductInSale].total,
         productsSale: state.productsSale.filter((productSale, index) =>
           index !== parseInt(action.indexProductInSale, 10)
-        )
+        ),
+        disabledButton: disabled
       }
     }
     default:

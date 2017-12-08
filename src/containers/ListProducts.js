@@ -53,6 +53,7 @@ class ListProducts extends Component {
               <RaisedButton
                 label = 'GUARDAR E IMPRIMIR'
                 primary = { true }
+                disabled = { this.props.disabledButton }
                 style = {
                   {
                     marginRight: 12
@@ -67,10 +68,25 @@ class ListProducts extends Component {
               <RaisedButton
                 label = 'GUARDAR'
                 secondary = { true }
+                disabled = { this.props.disabledButton }
+                style = {
+                  {
+                    marginRight: 12
+                  }
+                }
                 onClick = { () => {
                   this.props.clearDataSale()
                   this.props.resetClient()
                   this.props.saveSale(this.props.productsSale, this.props.clientIDForSale)
+                }}
+              ></RaisedButton>
+              <RaisedButton
+                label = 'NUEVO'
+                secondary = { true }
+                disabled = { this.props.disabledButton }
+                onClick = { () => {
+                  this.props.clearDataSale()
+                  this.props.resetClient()
                 }}
               ></RaisedButton>
             </div>
@@ -140,8 +156,8 @@ class ListProducts extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.sale)
   return {
+    disabledButton: state.sale.disabledButton,
     productsSale: state.sale.productsSale,
     totalSale: state.sale.totalSale,
     clientIDForSale: state.clients.clientIDForSale,
