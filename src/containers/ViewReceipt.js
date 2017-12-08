@@ -4,11 +4,13 @@
 // Main module
 import React, { Component } from 'react'
 // Other modules
-import { Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import { Modal, Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
+import moment from 'moment'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
+import _ from 'lodash'
 
 // -- Own Modules
 import {
@@ -26,7 +28,39 @@ class ViewReceipt extends Component {
               <Modal.Title>NOTA DE VENTA</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div>Test</div>
+              <div>Vendedor: { this.props.saleSelected.seller }</div>
+              <div>Fecha: { moment(this.props.saleSelected.date).format('DD/MM/YY') }</div>
+              <div>Hora: { moment(this.props.saleSelected.date).format('hh:mm:ss a') }</div>
+              <div>Cliente: { this.props.saleSelected.client.name }</div>
+              <h3>TOTAL: { this.props.saleSelected.total }</h3>
+              <Table responsive>
+                <thead>
+                  <tr>
+                    <th>Cant.</th>
+                    <th>Med.</th>
+                    <th>Descripcion</th>
+                    <th>P.Unit</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    this.props.saleSelected.products.map(product => {
+                      let priceChosen = product.prices[product.indexPrice];
+                      let unitPrice = product.total / (priceChosen.items * product.quantity);
+                      return (
+                        <tr key = { product.id } >
+                          <td>{ product.quantity }</td>
+                          <td>{ product.measure }</td>
+                          <td>{ product.name }</td>
+                          <td>{ _.round(unitPrice, 2) }</td>
+                          <td>{ product.total }</td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
             </Modal.Body>
             <Modal.Footer>
               <RaisedButton

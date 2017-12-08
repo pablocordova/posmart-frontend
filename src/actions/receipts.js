@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const SALES_PATH = '/sales'
 const LAST_SALES_PATH = '/last/10'
-const BYID_SALES_PATH = '/byid'
+const BYID_SALES_PATH = '/bypartialid'
+const PROCESSED_SALES_PATH = '/processed'
 
 const hideCompleteReceipt = () => {
   return ({
@@ -59,11 +60,25 @@ const saveIDToSearch = (text) => {
   })
 }
 
-const showCompleteReceipt = (index) => {
-  return ({
-    type: 'SHOW_COMPLETE_RECEIPT',
-    index
-  })
+const showCompleteReceipt = (idReceipt) => {
+
+  return dispatch => {
+    return axios.get(
+      process.env.REACT_APP_SERVER_PATH + SALES_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
+      {
+        headers: {
+          'Authorization': 'JWT ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then(response => {
+        dispatch({
+          type: 'SHOW_COMPLETE_RECEIPT',
+          saleSelected: response.data.result,
+        })
+      })
+  }
+
 }
 
 export {

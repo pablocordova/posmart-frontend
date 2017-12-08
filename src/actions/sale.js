@@ -3,6 +3,7 @@ import axios from 'axios'
 const SALE_PATH = '/sales'
 const SETTINGS_PATH = '/settings'
 const PRINT_PATH = '/print/sale'
+const PROCESSED_SALES_PATH = '/processed'
 
 const addProductToSale = (
   selectedProduct,
@@ -31,10 +32,25 @@ const clearDataSale = () => {
   })
 }
 
-const copyReceiptToSale = () => {
-  return ({
-    type: 'COPY_RECEIPT_TO_SALE'
-  })
+const copyReceiptToSale = (idReceipt) => {
+
+  return dispatch => {
+    return axios.get(
+      process.env.REACT_APP_SERVER_PATH + SALE_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
+      {
+        headers: {
+          'Authorization': 'JWT ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then(response => {
+        dispatch({
+          type: 'COPY_RECEIPT_TO_SALE',
+          saleSelected: response.data.result,
+        })
+      })
+  }
+
 }
 
 const deleteProductInSale = (indexProductInSale) => {

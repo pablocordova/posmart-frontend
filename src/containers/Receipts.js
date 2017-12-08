@@ -54,13 +54,15 @@ class Receipts extends Component {
           ></RaisedButton>
           <FormGroup>
             <ControlLabel>10 Ultimos:</ControlLabel>
-            <RaisedButton
-              label = 'Obtener'
-              primary = { true }
-              onClick = { () =>
-                this.props.getLastReceipts()
-              }
-            ></RaisedButton>
+            <div>
+              <RaisedButton
+                label = 'Obtener'
+                primary = { true }
+                onClick = { () =>
+                  this.props.getLastReceipts()
+                }
+              ></RaisedButton>
+            </div>
           </FormGroup>
           <Table responsive>
             <thead>
@@ -68,29 +70,27 @@ class Receipts extends Component {
                 <th>ID</th>
                 <th>Fecha</th>
                 <th>Hora</th>
-                <th>Cliente</th>
-                <th>Vendedor</th>
                 <th>Total</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {
-                this.props.sales.map((sale, index) => {
+                this.props.sales.map(sale => {
                   return (
                     <tr key = { sale._id } >
                       <td>{ String(sale._id).substring(0, 8) }</td>
                       <td>{ moment(sale.date).format('DD/MM/YY') }</td>
                       <td>{ moment(sale.date).format('hh:mm:ss a') }</td>
-                      <td>Cliente</td>
-                      <td>Vendedor</td>
                       <td>{ sale.total }</td>
                       <td>
-                        <i className = 'fa fa-eye' id = { index } onClick = { (e) =>
+                        <i className = 'fa fa-eye' id = { sale._id } onClick = { (e) =>
                           this.props.showCompleteReceipt(e.target.id)
                         }></i>
-                        <i className = 'fa fa-files-o' id = { sale._id } onClick = { (e) =>
+                        <i className = 'fa fa-files-o' id = { sale._id } onClick = { (e) => {
                           this.props.copyReceiptToSale(e.target.id)
+                          this.props.history.push('/sale')
+                        }
                         }></i>
                       </td>
                     </tr>
@@ -129,8 +129,8 @@ const mapDispatchToProps = dispatch => {
     saveIDToSearch(text) {
       dispatch(saveIDToSearch(text))
     },
-    showCompleteReceipt(index) {
-      dispatch(showCompleteReceipt(index))
+    showCompleteReceipt(idReceipt) {
+      dispatch(showCompleteReceipt(idReceipt))
     }
   }
 }

@@ -1,6 +1,11 @@
 const receipts = ( state = {
   sales: [],
-  saleSelected: {},
+  saleSelected: {
+    products: [],
+    client: {
+      name: ''
+    }
+  },
   idToSearch: '',
   isVisibleCompleteReceipt: false
 }, action) => {
@@ -30,7 +35,7 @@ const receipts = ( state = {
       return {
         ...state,
         isVisibleCompleteReceipt: true,
-        saleSelected: state.sales[action.index]
+        saleSelected: action.saleSelected
       }
     default:
       return state
