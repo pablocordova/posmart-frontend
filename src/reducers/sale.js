@@ -21,7 +21,8 @@ const sale = ( state = {
 
       for (let product of sale.products) {
         // Generate
-        const items = product.prices[product.indexPrice].items;
+        //const items = product.prices[product.indexPrice].items;
+        const items = product.unitsInPrice
         const objProductSale = {
           product: product.id,
           name: product.name,
