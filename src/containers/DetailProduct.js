@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { hideDetailProduct, calculateSaleProduct, saveUnitChosen } from '../actions/products'
+import {
+  calculateSaleProduct,
+  calculateSaleProductAlone,
+  hideDetailProduct,
+  changePriceProductFor,
+  saveUnitChosen,
+  saveUnitChosenFor,
+  saveDiscountChosenFor
+} from '../actions/products'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import { addProductToSale } from '../actions/sale'
 
@@ -42,7 +50,10 @@ class DetailProduct extends Component {
                     this.props.calculateSaleProduct(
                       e.target.value,
                       this.props.priceProduct,
-                      this.props.discountProduct
+                      this.props.priceProductFor,
+                      this.props.discountMeasureProduct,
+                      this.props.discountProduct,
+                      this.props.discountGeneralProduct
                     )
                   }
                 />
@@ -52,14 +63,54 @@ class DetailProduct extends Component {
                 <FormControl
                   componentClass = 'select'
                   onChange = { e => {
-                    this.props.calculateSaleProduct(
-                      this.props.amountProduct,
-                      e.target.value,
-                      this.props.discountProduct
-                    )
                     this.props.saveUnitChosen(
                       e.target.selectedOptions[0].innerText,
                       e.target.selectedOptions[0].index
+                    )
+                    this.props.changePriceProductFor(e.target.value)
+                    this.props.calculateSaleProductAlone(
+                      this.props.amountProduct,
+                      e.target.value,
+                      this.props.priceProductFor,
+                      this.props.discountMeasureProduct,
+                      this.props.discountProduct,
+                      this.props.discountGeneralProduct
+                    )
+                  }}
+                >
+                  {
+                    this.props.selectedProduct.prices.map(price => {
+                      return (
+                        <option
+                          value = { price.price }
+                          key = { price.name }
+                        >
+                          { price.name }
+                        </option>
+                      )
+                    })
+                  }
+                </FormControl>
+              </FormGroup>
+              <hr />
+              <FormGroup>
+                <ControlLabel>Precio por</ControlLabel>
+                <FormControl
+                  className = 'forms-reduced inline-block'
+                  componentClass = 'select'
+                  value = { this.props.priceProductFor }
+                  onChange = { e => {
+                    this.props.changePriceProductFor(e.target.value)
+                    this.props.saveUnitChosenFor(
+                      e.target.selectedOptions[0].index
+                    )
+                    this.props.calculateSaleProduct(
+                      this.props.amountProduct,
+                      this.props.priceProduct,
+                      e.target.value,
+                      this.props.discountMeasureProduct,
+                      this.props.discountProduct,
+                      this.props.discountGeneralProduct
                     )
                   }}
                 >
@@ -78,22 +129,73 @@ class DetailProduct extends Component {
                 </FormControl>
               </FormGroup>
               <FormGroup>
-                <ControlLabel>Descuento unitario</ControlLabel>
+                <ControlLabel>Descuento por</ControlLabel>
                 <FormControl
-                  type = 'number'
-                  defaultValue = { 0 }
-                  onChange = { (e) =>
+                  className = 'forms-reduced inline-block'
+                  componentClass = 'select'
+                  onChange = { e => {
+                    this.props.saveDiscountChosenFor(
+                      e.target.selectedOptions[0].index
+                    )
                     this.props.calculateSaleProduct(
                       this.props.amountProduct,
                       this.props.priceProduct,
+                      this.props.priceProductFor,
+                      e.target.value,
+                      this.props.discountProduct,
+                      this.props.discountGeneralProduct
+                    )
+                  }}
+                >
+                  {
+                    this.props.selectedProduct.prices.map(price => {
+                      return (
+                        <option
+                          value = { price.price }
+                          key = { price.name }
+                        >
+                          { price.name }
+                        </option>
+                      )
+                    })
+                  }
+                </FormControl>
+                <FormControl
+                  className = 'forms-reduced inline-block'
+                  type = 'number'
+                  defaultValue = { 0 }
+                  onChange = { (e) => {
+                    this.props.calculateSaleProduct(
+                      this.props.amountProduct,
+                      this.props.priceProduct,
+                      this.props.priceProductFor,
+                      this.props.discountMeasureProduct,
+                      e.target.value,
+                      this.props.discountGeneralProduct
+                    )
+                  }}
+                />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Descuento General</ControlLabel>
+                <FormControl
+                  className = 'forms-reduced inline-block'
+                  type = 'number'
+                  defaultValue = { 0 }
+                  onChange = { (e) => {
+                    this.props.calculateSaleProduct(
+                      this.props.amountProduct,
+                      this.props.priceProduct,
+                      this.props.priceProductFor,
+                      this.props.discountMeasureProduct,
+                      this.props.discountProduct,
                       e.target.value
                     )
-                  }
+                  }}
                 />
               </FormGroup>
               <FormGroup className = 'rightText'>
-                <ControlLabel>Total</ControlLabel>
-                <ControlLabel>S./{ this.props.totalProduct }</ControlLabel>
+                <h2>Total S./{ this.props.totalProduct }</h2>
               </FormGroup>
             </form>
           </Modal.Body>
@@ -122,13 +224,16 @@ class DetailProduct extends Component {
 
 const mapStateToProps = state => {
   return {
+    discountMeasureProduct: state.products.discountMeasureProduct,
+    discountProduct: state.products.discountProduct,
+    discountGeneralProduct: state.products.discountGeneralProduct,
     modal: state.products.modal,
     selectedProduct: state.products.selectedProduct,
     amountProduct: state.products.amountProduct,
     unitChosen: state.products.unitChosen,
     indexChosen: state.products.indexChosen,
     priceProduct: state.products.priceProduct,
-    discountProduct: state.products.discountProduct,
+    priceProductFor: state.products.priceProductFor,
     totalProduct: state.products.totalProduct,
     unitsInPrice: state.products.unitsInPrice
   }
@@ -158,11 +263,37 @@ const mapDispatchToProps = dispatch => {
         unitsInPrice
       ))
     },
-    calculateSaleProduct(amount, price, discount) {
-      dispatch(calculateSaleProduct(amount, price, discount))
+    calculateSaleProduct(amount, price, priceFor, discountMeasure, discount, discountGeneral) {
+      dispatch(calculateSaleProduct(
+        amount,
+        price,
+        priceFor,
+        discountMeasure,
+        discount,
+        discountGeneral)
+      )
+    },
+    calculateSaleProductAlone(amount, price, priceFor, discountMeasure, discount, discountGeneral) {
+      dispatch(calculateSaleProductAlone(
+        amount,
+        price,
+        priceFor,
+        discountMeasure,
+        discount,
+        discountGeneral)
+      )
+    },
+    changePriceProductFor(measurePrice) {
+      dispatch(changePriceProductFor(measurePrice))
     },
     saveUnitChosen(unitChosen, indexChosen) {
       dispatch(saveUnitChosen(unitChosen, indexChosen))
+    },
+    saveUnitChosenFor(indexChosenFor) {
+      dispatch(saveUnitChosenFor(indexChosenFor))
+    },
+    saveDiscountChosenFor(indexDiscountFor) {
+      dispatch(saveDiscountChosenFor(indexDiscountFor))
     }
   }
 }

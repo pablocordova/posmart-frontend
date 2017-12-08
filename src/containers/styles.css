@@ -60,3 +60,8 @@
 .total-label {
   text-align: right;
 }
+
+.forms-reduced {
+  width: 25%;
+  margin-left: 20px;
+}

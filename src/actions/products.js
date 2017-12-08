@@ -2,12 +2,48 @@ import axios from 'axios'
 
 const GET_PRODUCTS_PATH = '/products'
 
-const calculateSaleProduct = (amount, price, discount) => {
+const calculateSaleProduct = (
+  amount,
+  price,
+  priceFor,
+  discountMeasure,
+  discount,
+  discountGeneral
+) => {
   return ({
     type: 'CALCULATE_SALE_PRODUCT',
     amount,
     price,
-    discount
+    priceFor,
+    discountMeasure,
+    discount,
+    discountGeneral
+  })
+}
+
+const calculateSaleProductAlone = (
+  amount,
+  price,
+  priceFor,
+  discountMeasure,
+  discount,
+  discountGeneral
+) => {
+  return ({
+    type: 'CALCULATE_SALE_PRODUCT_ALONE',
+    amount,
+    price,
+    priceFor,
+    discountMeasure,
+    discount,
+    discountGeneral
+  })
+}
+
+const changePriceProductFor = (measurePrice) => {
+  return ({
+    type: 'CHANGE_PRICE_PRODUCT_FOR',
+    measurePrice
   })
 }
 
@@ -62,11 +98,30 @@ const saveUnitChosen = (unitChosen, indexChosen) => {
   })
 }
 
+const saveUnitChosenFor = (indexChosenFor) => {
+  return ({
+    type: 'SAVE_UNIT_CHOSEN_FOR',
+    indexChosenFor
+  })
+}
+
+const saveDiscountChosenFor = (indexDiscountFor) => {
+  return ({
+    type: 'SAVE_DISCOUNT_CHOSEN_FOR',
+    indexDiscountFor
+  })
+}
+
+
 export {
   calculateSaleProduct,
+  calculateSaleProductAlone,
+  changePriceProductFor,
   filterProducts,
   hideDetailProduct,
   loadProducts,
   saveUnitChosen,
+  saveUnitChosenFor,
+  saveDiscountChosenFor,
   showDetailProduct
 }
