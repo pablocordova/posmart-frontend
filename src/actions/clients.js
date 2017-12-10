@@ -1,6 +1,18 @@
 import axios from 'axios'
 
 const CLIENTS_PATH = '/customers'
+let SERVER_PATH = ''
+
+switch (process.env.REACT_APP_ENV) {
+  case 'production':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_PRODUCTION;
+    break;
+  case 'development':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_DEVELOPMENT;
+    break;
+  default:
+    break;
+}
 
 const clientToSale = (indexClientFiltered) => {
   return ({
@@ -12,7 +24,7 @@ const clientToSale = (indexClientFiltered) => {
 const createClient = (client) => {
   return () => {
     return axios.post(
-      process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH, client,
+      SERVER_PATH + CLIENTS_PATH, client,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -28,7 +40,7 @@ const createClient = (client) => {
 const deleteClient = (idClient) => {
   return () => {
     return axios.delete(
-      process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH + '/' + idClient,
+      SERVER_PATH + CLIENTS_PATH + '/' + idClient,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -60,7 +72,7 @@ const hideClientForm = () => {
 const loadClients = () => {
   return dispatch => {
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH,
+      SERVER_PATH + CLIENTS_PATH,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -98,7 +110,7 @@ const showModifyClient = (idClient) => {
 const updateClient = client => {
   return () => {
     return axios.put(
-      process.env.REACT_APP_SERVER_PATH + CLIENTS_PATH + '/' + client.id, client,
+      SERVER_PATH + CLIENTS_PATH + '/' + client.id, client,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')

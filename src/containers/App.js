@@ -10,6 +10,19 @@ import Receipts from '../containers/Receipts'
 import ListProducts from '../containers/ListProducts'
 import Login from '../containers/Login'
 
+let BASE_URL = ''
+
+switch (process.env.REACT_APP_ENV) {
+  case 'production':
+    BASE_URL = process.env.REACT_APP_BASE_URL_PRODUCTION;
+    break;
+  case 'development':
+    BASE_URL = process.env.REACT_APP_BASE_URL_DEVELOPMENT;
+    break;
+  default:
+    break;
+}
+
 class App extends Component {
 
   constructor(){
@@ -52,7 +65,7 @@ class App extends Component {
     }
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename = { BASE_URL }>
         <div>
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>

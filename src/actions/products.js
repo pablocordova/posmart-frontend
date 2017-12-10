@@ -2,6 +2,19 @@ import axios from 'axios'
 
 const GET_PRODUCTS_PATH = '/products'
 
+let SERVER_PATH = ''
+
+switch (process.env.REACT_APP_ENV) {
+  case 'production':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_PRODUCTION;
+    break;
+  case 'development':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_DEVELOPMENT;
+    break;
+  default:
+    break;
+}
+
 const calculateSaleProduct = (
   amount,
   price,
@@ -51,7 +64,7 @@ const loadProducts = () => {
 
   return dispatch => {
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + GET_PRODUCTS_PATH,
+      SERVER_PATH + GET_PRODUCTS_PATH,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')

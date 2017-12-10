@@ -2,6 +2,7 @@
   "name": "pos-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://18.216.24.110/app",
   "dependencies": {
     "axios": "^0.17.0",
     "font-awesome": "^4.7.0",

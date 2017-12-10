@@ -5,6 +5,19 @@ const SETTINGS_PATH = '/settings'
 const PRINT_PATH = '/print/sale'
 const PROCESSED_SALES_PATH = '/processed'
 
+let SERVER_PATH = ''
+
+switch (process.env.REACT_APP_ENV) {
+  case 'production':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_PRODUCTION;
+    break;
+  case 'development':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_DEVELOPMENT;
+    break;
+  default:
+    break;
+}
+
 const addProductToSale = (
   selectedProduct,
   amountProduct,
@@ -36,7 +49,7 @@ const copyReceiptToSale = (idReceipt) => {
 
   return dispatch => {
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + SALE_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
+      SERVER_PATH + SALE_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -64,7 +77,7 @@ const saveSale = (productsSale, clientID) => {
 
   return () => {
     return axios.post(
-      process.env.REACT_APP_SERVER_PATH + SALE_PATH,
+      SERVER_PATH + SALE_PATH,
       {
         client: clientID,
         products: productsSale
@@ -89,7 +102,7 @@ const saveAndPrintSale = (productsSale, clientID) => {
 
   return () => {
     return axios.post(
-      process.env.REACT_APP_SERVER_PATH + SALE_PATH,
+      SERVER_PATH + SALE_PATH,
       {
         client: clientID,
         products: productsSale
@@ -105,7 +118,7 @@ const saveAndPrintSale = (productsSale, clientID) => {
         // I need to pass id of sale to print
         // PRINT
         axios.post(
-          process.env.REACT_APP_SERVER_PATH + SETTINGS_PATH + PRINT_PATH,
+          SERVER_PATH + SETTINGS_PATH + PRINT_PATH,
           {
             saleID: response.data.result._id
           },

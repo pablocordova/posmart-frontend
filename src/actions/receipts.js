@@ -5,6 +5,19 @@ const LAST_SALES_PATH = '/last/10'
 const BYID_SALES_PATH = '/bypartialid'
 const PROCESSED_SALES_PATH = '/processed'
 
+let SERVER_PATH = ''
+
+switch (process.env.REACT_APP_ENV) {
+  case 'production':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_PRODUCTION;
+    break;
+  case 'development':
+    SERVER_PATH = process.env.REACT_APP_SERVER_PATH_DEVELOPMENT;
+    break;
+  default:
+    break;
+}
+
 const hideCompleteReceipt = () => {
   return ({
     type: 'HIDE_COMPLETE_RECEIPT'
@@ -15,7 +28,7 @@ const getLastReceipts = () => {
 
   return dispatch => {
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + SALES_PATH + LAST_SALES_PATH,
+      SERVER_PATH + SALES_PATH + LAST_SALES_PATH,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -36,7 +49,7 @@ const getReceiptById = (idReceipt) => {
 
   return dispatch => {
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + SALES_PATH + BYID_SALES_PATH + '/' + idReceipt,
+      SERVER_PATH + SALES_PATH + BYID_SALES_PATH + '/' + idReceipt,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
@@ -64,7 +77,7 @@ const showCompleteReceipt = (idReceipt) => {
 
   return dispatch => {
     return axios.get(
-      process.env.REACT_APP_SERVER_PATH + SALES_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
+      SERVER_PATH + SALES_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
       {
         headers: {
           'Authorization': 'JWT ' + localStorage.getItem('token')
