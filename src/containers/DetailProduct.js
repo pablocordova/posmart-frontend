@@ -13,7 +13,7 @@ import {
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import { addProductToSale } from '../actions/sale'
 
-import './styles.css'
+import '../styles/DetailProduct.css'
 
 class DetailProduct extends Component {
 
@@ -21,8 +21,8 @@ class DetailProduct extends Component {
     return (
       <div>
         <Modal show = { this.props.modal } >
-          <Modal.Header>
-            <Modal.Title> { this.props.selectedProduct.name } </Modal.Title>
+          <Modal.Header className = 'title-header'>
+            <Modal.Title> { this.props.selectedProduct.name.toUpperCase() } </Modal.Title>
             <div className = 'block-sample-prices'>
               {
                 this.props.selectedProduct.prices.map((entry, index) => {
@@ -194,7 +194,7 @@ class DetailProduct extends Component {
                   }}
                 />
               </FormGroup>
-              <FormGroup className = 'rightText'>
+              <FormGroup className = 'right-text'>
                 <h2>Total S./{ this.props.totalProduct }</h2>
               </FormGroup>
             </form>
@@ -213,7 +213,7 @@ class DetailProduct extends Component {
               )
               this.props.hideDetailProduct()
             }}
-            >OK</Button>
+            >ELEGIR</Button>
           </Modal.Footer>
         </Modal>
       </div>

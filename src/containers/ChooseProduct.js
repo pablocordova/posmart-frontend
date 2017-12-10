@@ -5,7 +5,7 @@ import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import DetailProduct from './DetailProduct'
-import './styles.css'
+import '../styles/ChooseProduct.css'
 import { loadProducts, showDetailProduct, filterProducts } from '../actions/products'
 
 class ChooseProduct extends Component {
@@ -34,7 +34,7 @@ class ChooseProduct extends Component {
 
     return (
       <div>
-        <h2>PRODUCTO</h2>
+        <h2 className = 'title-product'>PRODUCTO</h2>
         <form>
           <FormGroup>
             <FormControl
@@ -60,8 +60,10 @@ class ChooseProduct extends Component {
                   return (
                     <TableRow key = { product._id } >
                       {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
-                      <TableRowColumn>
-                        <h4>{ product.name }</h4>
+                      <TableRowColumn className = 'row-table'>
+                        <h4 className = 'name-product'>{
+                          product.name
+                        }</h4>
                         <div className = 'block-sample-prices'>
                           {
                             product.prices.map((entry, index) => {

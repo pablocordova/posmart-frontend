@@ -13,6 +13,7 @@ const products = (
     priceProductFor: '',
     totalProduct: '',
     selectedProduct: {
+      name: '',
       prices: []
     },
     unitChosen: '',

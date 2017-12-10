@@ -1,0 +1,31 @@
+.block-sample-prices {
+  margin: 15px auto;
+}
+
+.forms-reduced {
+  width: 25%;
+  margin-left: 20px;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.right-text {
+  text-align: right;
+}
+
+.sample-prices {
+  display: inline-block;
+  background-color: green;
+  /*margin-right: 7px;*/
+  color: white;
+  padding: 2px 4px 2px 4px;
+  border-radius: 5px;
+  text-align: left;
+  margin-right: 1%;
+}
+
+.title-header {
+  text-align: center;
+}

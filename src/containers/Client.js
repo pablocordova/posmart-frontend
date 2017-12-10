@@ -15,6 +15,7 @@ import {
 import { FormGroup, FormControl, Row, Grid, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
+import ContentReply from 'material-ui/svg-icons/content/reply'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
 import swal from 'sweetalert2'
@@ -45,18 +46,26 @@ class Client extends Component {
         <form>
           <Grid>
             <Row>
-              <Col md = { 12 }>
-                <h2>CLIENTES</h2>
-                <FormGroup>
-                  <FormControl
-                    type = 'text'
-                    placeholder = 'Buscar cliente por nombre'
-                    onChange = { e =>
-                      this.props.filterClients(e.target.value)
+              <MuiThemeProvider>
+                <Col md = { 12 }>
+                  <RaisedButton
+                    label = 'VENTA'
+                    primary = { true }
+                    icon = { <ContentReply/> }
+                    onClick = { () =>
+                      this.props.history.push('/sale')
                     }
-                  />
-                </FormGroup>
-                <MuiThemeProvider>
+                  ></RaisedButton>
+                  <h2>CLIENTES</h2>
+                  <FormGroup>
+                    <FormControl
+                      type = 'text'
+                      placeholder = 'Buscar cliente por nombre'
+                      onChange = { e =>
+                        this.props.filterClients(e.target.value)
+                      }
+                    />
+                  </FormGroup>
                   <RaisedButton
                     label = 'NUEVO'
                     primary = { true }
@@ -64,8 +73,8 @@ class Client extends Component {
                       this.props.showCreateClient()
                     }
                   ></RaisedButton>
-                </MuiThemeProvider>
-              </Col>
+                </Col>
+              </MuiThemeProvider>
             </Row>
             <Row>
               <Col md = { 12 }>

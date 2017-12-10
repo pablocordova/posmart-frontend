@@ -8,7 +8,9 @@ import {
   ControlLabel,
   Table,
   FormGroup,
-  FormControl
+  FormControl,
+  Grid,
+  Row
 } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
@@ -33,74 +35,78 @@ class Receipts extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <h2>RECIBOS</h2>
-          <FormGroup>
-            <ControlLabel>ID:</ControlLabel>
-            <FormControl
-              type = 'text'
-              placeholder = 'ticket id'
-              onChange = { e =>
-                this.props.saveIDToSearch(e.target.value)
-              }
-            />
-          </FormGroup>
-          <RaisedButton
-            label = 'Obtener'
-            primary = { true }
-            onClick = { () =>
-              this.props.getReceiptById(this.props.idToSearch)
-            }
-          ></RaisedButton>
-          <FormGroup>
-            <ControlLabel>10 Ultimos:</ControlLabel>
+        <Grid>
+          <Row>
             <div>
+              <h2>RECIBOS</h2>
+              <FormGroup>
+                <ControlLabel>ID:</ControlLabel>
+                <FormControl
+                  type = 'text'
+                  placeholder = 'ticket id'
+                  onChange = { e =>
+                    this.props.saveIDToSearch(e.target.value)
+                  }
+                />
+              </FormGroup>
               <RaisedButton
                 label = 'Obtener'
                 primary = { true }
                 onClick = { () =>
-                  this.props.getLastReceipts()
+                  this.props.getReceiptById(this.props.idToSearch)
                 }
               ></RaisedButton>
+              <FormGroup>
+                <ControlLabel>10 Ultimos:</ControlLabel>
+                <div>
+                  <RaisedButton
+                    label = 'Obtener'
+                    primary = { true }
+                    onClick = { () =>
+                      this.props.getLastReceipts()
+                    }
+                  ></RaisedButton>
+                </div>
+              </FormGroup>
+              <Table responsive>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    this.props.sales.map(sale => {
+                      return (
+                        <tr key = { sale._id } >
+                          <td>{ String(sale._id).substring(0, 8) }</td>
+                          <td>{ moment(sale.date).format('DD/MM/YY') }</td>
+                          <td>{ moment(sale.date).format('hh:mm:ss a') }</td>
+                          <td>{ sale.total }</td>
+                          <td>
+                            <i className = 'fa fa-eye' id = { sale._id } onClick = { (e) =>
+                              this.props.showCompleteReceipt(e.target.id)
+                            }></i>
+                            <i className = 'fa fa-files-o' id = { sale._id } onClick = { (e) => {
+                              this.props.copyReceiptToSale(e.target.id)
+                              this.props.history.push('/sale')
+                            }
+                            }></i>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
+              <ViewReceipt />
             </div>
-          </FormGroup>
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                this.props.sales.map(sale => {
-                  return (
-                    <tr key = { sale._id } >
-                      <td>{ String(sale._id).substring(0, 8) }</td>
-                      <td>{ moment(sale.date).format('DD/MM/YY') }</td>
-                      <td>{ moment(sale.date).format('hh:mm:ss a') }</td>
-                      <td>{ sale.total }</td>
-                      <td>
-                        <i className = 'fa fa-eye' id = { sale._id } onClick = { (e) =>
-                          this.props.showCompleteReceipt(e.target.id)
-                        }></i>
-                        <i className = 'fa fa-files-o' id = { sale._id } onClick = { (e) => {
-                          this.props.copyReceiptToSale(e.target.id)
-                          this.props.history.push('/sale')
-                        }
-                        }></i>
-                      </td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </Table>
-          <ViewReceipt />
-        </div>
+          </Row>
+        </Grid>
       </MuiThemeProvider>
     )
   }

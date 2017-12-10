@@ -15,7 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import _ from 'lodash'
 
 import 'font-awesome/css/font-awesome.min.css';
-import './styles.css'
+import '../styles/ListProducts.css'
 
 // -- Own Modules
 import {
@@ -94,7 +94,7 @@ class ListProducts extends Component {
 
           <h4 className = 'inline-block client-label'>Cliente: { this.props.clientNameForSale }</h4>
           <RaisedButton primary = { true } className = 'inline-block'>
-            <Link to = '/client' className = 'link-clients'>Clientes</Link>
+            <Link to = '/client' className = 'link-clients'>Elegir Cliente</Link>
           </RaisedButton>
           <div className = 'total-label'>
             <h2>TOTAL: S/. { this.props.totalSale }</h2>
