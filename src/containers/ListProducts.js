@@ -102,7 +102,7 @@ class ListProducts extends Component {
           <div>
             <Table responsive>
               <thead>
-                <tr>
+                <tr className = 'center-text-head'>
                   <th hidden></th>
                   <th hidden></th>
                   <th>Cant.</th>
@@ -117,7 +117,7 @@ class ListProducts extends Component {
                 {
                   this.props.productsSale.map((product, index) => {
                     return (
-                      <tr key = { index }>
+                      <tr key = { index } className = 'center-text'>
                         <td hidden = { true }>{ product.product }</td>
                         <td hidden = { true }>{ product.priceIndex }</td>
                         <td>
@@ -136,7 +136,7 @@ class ListProducts extends Component {
                           { product.total }
                         </td>
                         <td>
-                          <i className = 'fa fa-trash' id = { index } onClick = { (e) =>
+                          <i className = 'fa fa-trash fa-lg' id = { index } onClick = { (e) =>
                             this.props.deleteProductInSale(e.target.id)
                           }
                           ></i>

@@ -29,6 +29,7 @@ import {
 } from '../actions/sale'
 
 import ViewReceipt from './ViewReceipt'
+import '../styles/Receipts.css'
 
 class Receipts extends Component {
 
@@ -70,7 +71,7 @@ class Receipts extends Component {
               </FormGroup>
               <Table responsive>
                 <thead>
-                  <tr>
+                  <tr className = 'center-text-head'>
                     <th>ID</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -82,19 +83,20 @@ class Receipts extends Component {
                   {
                     this.props.sales.map(sale => {
                       return (
-                        <tr key = { sale._id } >
+                        <tr key = { sale._id } className = 'center-text'>
                           <td>{ String(sale._id).substring(0, 8) }</td>
                           <td>{ moment(sale.date).format('DD/MM/YY') }</td>
                           <td>{ moment(sale.date).format('hh:mm:ss a') }</td>
                           <td>{ sale.total }</td>
-                          <td>
-                            <i className = 'fa fa-eye' id = { sale._id } onClick = { (e) =>
+                          <td className = 'spread-items'>
+                            <i className = 'fa fa-eye fa-lg' id = { sale._id } onClick = { (e) =>
                               this.props.showCompleteReceipt(e.target.id)
                             }></i>
-                            <i className = 'fa fa-files-o' id = { sale._id } onClick = { (e) => {
-                              this.props.copyReceiptToSale(e.target.id)
-                              this.props.history.push('/sale')
-                            }
+                            <i className = 'fa fa-files-o fa-lg' id = { sale._id } onClick = {
+                              (e) => {
+                                this.props.copyReceiptToSale(e.target.id)
+                                this.props.history.push('/sale')
+                              }
                             }></i>
                           </td>
                         </tr>
