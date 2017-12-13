@@ -29,8 +29,8 @@ class ViewReceipt extends Component {
             </Modal.Header>
             <Modal.Body>
               <div>Vendedor: { this.props.saleSelected.seller }</div>
-              <div>Fecha: { moment(this.props.saleSelected.date).format('DD/MM/YY') }</div>
-              <div>Hora: { moment(this.props.saleSelected.date).format('hh:mm:ss a') }</div>
+              <div>Fecha: { moment.utc(this.props.saleSelected.date).format('DD/MM/YY') }</div>
+              <div>Hora: { moment.utc(this.props.saleSelected.date).format('hh:mm:ss a') }</div>
               <div>Cliente: { this.props.saleSelected.client.name }</div>
               <h3>TOTAL: { this.props.saleSelected.total }</h3>
               <Table responsive>

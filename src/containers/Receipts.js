@@ -85,8 +85,8 @@ class Receipts extends Component {
                       return (
                         <tr key = { sale._id } className = 'center-text'>
                           <td>{ String(sale._id).substring(0, 8) }</td>
-                          <td>{ moment(sale.date).format('DD/MM/YY') }</td>
-                          <td>{ moment(sale.date).format('hh:mm:ss a') }</td>
+                          <td>{ moment.utc(sale.date).format('DD/MM/YY') }</td>
+                          <td>{ moment.utc(sale.date).format('hh:mm:ss a') }</td>
                           <td>{ sale.total }</td>
                           <td className = 'spread-items'>
                             <i className = 'fa fa-eye fa-lg' id = { sale._id } onClick = { (e) =>
