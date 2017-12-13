@@ -1,8 +1,10 @@
 import axios from 'axios'
 
 const SALES_PATH = '/sales'
+const SETTINGS_PATH = '/settings'
 const LAST_SALES_PATH = '/last/10'
 const BYID_SALES_PATH = '/bypartialid'
+const PRINT_PATH = '/print/sale'
 const PROCESSED_SALES_PATH = '/processed'
 
 let SERVER_PATH = ''
@@ -94,10 +96,35 @@ const showCompleteReceipt = (idReceipt) => {
 
 }
 
+const printSale = (idReceipt) => {
+
+  return () => {
+    return axios.post(
+      SERVER_PATH + SETTINGS_PATH + PRINT_PATH,
+      {
+        saleID: idReceipt
+      },
+      {
+        headers: {
+          'Authorization': 'JWT ' + localStorage.getItem('token')
+        }
+      }
+    )
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err=> {
+        console.log(err)
+      })
+  }
+
+}
+
 export {
   hideCompleteReceipt,
   getLastReceipts,
   getReceiptById,
   saveIDToSearch,
-  showCompleteReceipt
+  showCompleteReceipt,
+  printSale
 }

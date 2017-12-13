@@ -14,7 +14,8 @@ import _ from 'lodash'
 
 // -- Own Modules
 import {
-  hideCompleteReceipt
+  hideCompleteReceipt,
+  printSale
 } from '../actions/receipts'
 
 class ViewReceipt extends Component {
@@ -25,7 +26,17 @@ class ViewReceipt extends Component {
         <div>
           <Modal show = { this.props.isVisibleCompleteReceipt }>
             <Modal.Header>
-              <Modal.Title>NOTA DE VENTA</Modal.Title>
+              <Modal.Title>NOTA DE VENTA
+                <RaisedButton
+                  label = 'IMPRIMIR'
+                  className = 'pull-right'
+                  primary = { true }
+                  onClick = { () => {
+                    this.props.printSale(this.props.saleSelected._id)
+                    this.props.hideCompleteReceipt()
+                  }}
+                ></RaisedButton>
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <div>Vendedor: { this.props.saleSelected.seller }</div>
@@ -90,6 +101,9 @@ const mapDispatchToProps = dispatch => {
   return {
     hideCompleteReceipt() {
       dispatch(hideCompleteReceipt())
+    },
+    printSale(idReceipt) {
+      dispatch(printSale(idReceipt))
     }
   }
 }
