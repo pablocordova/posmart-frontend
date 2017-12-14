@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox';
 import _ from 'lodash'
 
 import 'font-awesome/css/font-awesome.min.css';
@@ -38,6 +39,13 @@ const muiTheme = getMuiTheme({
 });
 
 class ListProducts extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      stateSale: 'Pendiente'
+    }
+  }
 
   componentDidMount() {
     this.props.loadClients()
@@ -77,7 +85,11 @@ class ListProducts extends Component {
                 onClick = { () => {
                   this.props.clearDataSale()
                   this.props.resetClient()
-                  this.props.saveSale(this.props.productsSale, this.props.clientIDForSale)
+                  this.props.saveSale(
+                    this.props.productsSale,
+                    this.props.clientIDForSale,
+                    this.state.stateSale
+                  )
                 }}
               ></RaisedButton>
               <RaisedButton
@@ -96,8 +108,23 @@ class ListProducts extends Component {
           <RaisedButton primary = { true } className = 'inline-block'>
             <Link to = '/client' className = 'link-clients'>Elegir Cliente</Link>
           </RaisedButton>
+          <div>
+            <Checkbox
+              className = 'credit-button'
+              label = 'Credito'
+              onCheck = { e => {
+                let stateSale = 'Pendiente'
+                if (e.target.checked) {
+                  stateSale = 'Credito'
+                }
+                this.setState({
+                  stateSale: stateSale
+                })
+              }}
+            />
+          </div>
           <div className = 'total-label'>
-            <h2>TOTAL: S/. { this.props.totalSale }</h2>
+            <h2 className = 'total-h2'>TOTAL: S/. { this.props.totalSale }</h2>
           </div>
           <div>
             <Table responsive>
@@ -161,7 +188,8 @@ const mapStateToProps = state => {
     productsSale: state.sale.productsSale,
     totalSale: state.sale.totalSale,
     clientIDForSale: state.clients.clientIDForSale,
-    clientNameForSale: state.clients.clientNameForSale
+    clientNameForSale: state.clients.clientNameForSale,
+    stateSale: state.sale.stateSale
   }
 }
 
@@ -182,8 +210,8 @@ const mapDispatchToProps = dispatch => {
     saveAndPrintSale(productsSale, clientID) {
       dispatch(saveAndPrintSale(productsSale, clientID))
     },
-    saveSale(productsSale, clientID) {
-      dispatch(saveSale(productsSale, clientID))
+    saveSale(productsSale, clientID, state) {
+      dispatch(saveSale(productsSale, clientID, state))
     }
   }
 }

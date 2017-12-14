@@ -10,6 +10,10 @@
   margin-right: 40px;
 }
 
+.credit-button {
+  margin-top: 10px;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -33,4 +37,8 @@
 
 .total-label {
   text-align: right;
+}
+
+.total-h2 {
+  margin-top: 0px;
 }
