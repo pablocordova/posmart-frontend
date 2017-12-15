@@ -16,7 +16,6 @@ import Checkbox from 'material-ui/Checkbox';
 import _ from 'lodash'
 
 import 'font-awesome/css/font-awesome.min.css';
-import '../styles/ListProducts.css'
 
 // -- Own Modules
 import {
@@ -31,6 +30,8 @@ import {
   resetClient
 } from '../actions/clients'
 
+// Styles
+
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: indigo500,
@@ -41,6 +42,20 @@ const muiTheme = getMuiTheme({
 const miniatureStyle = {
   color: 'grey',
   fontSize: 8
+}
+
+const receiptTitleStyle = {
+  display: 'inline-block',
+  margin: '0 0 10px 0'
+}
+
+const labelClientStyle = {
+  marginRight: '40px',
+  display: 'inline-block'
+}
+
+const creditButtonStyle =  {
+  marginTop: '10px'
 }
 
 class ListProducts extends Component {
@@ -61,7 +76,7 @@ class ListProducts extends Component {
       <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
           <div>
-            <h2 className = 'receipt-title'>NOTA DE VENTA</h2>
+            <h2 style = { receiptTitleStyle }>NOTA DE VENTA</h2>
             <div className = 'pull-right'>
               <RaisedButton
                 label = 'GUARDAR E IMPRIMIR'
@@ -113,13 +128,13 @@ class ListProducts extends Component {
             </div>
           </div>
 
-          <h4 className = 'inline-block client-label'>Cliente: { this.props.clientNameForSale }</h4>
-          <RaisedButton primary = { true } className = 'inline-block'>
-            <Link to = '/client' className = 'link-clients'>Elegir Cliente</Link>
+          <h4 style = { labelClientStyle }>Cliente: { this.props.clientNameForSale }</h4>
+          <RaisedButton primary = { true } className = 'display-inline-block'>
+            <Link to = '/client' className = 'format-link-button'>Elegir Cliente</Link>
           </RaisedButton>
           <div>
             <Checkbox
-              className = 'credit-button'
+              style = { creditButtonStyle }
               label = 'Credito'
               onCheck = { e => {
                 let stateSale = 'Pendiente'
@@ -132,13 +147,13 @@ class ListProducts extends Component {
               }}
             />
           </div>
-          <div className = 'total-label'>
-            <h2 className = 'total-h2'>TOTAL: S/. { this.props.totalSale }</h2>
+          <div className = 'text-align-right'>
+            <h2 className = 'margin-top-zero'>TOTAL: S/. { this.props.totalSale }</h2>
           </div>
           <div>
             <Table responsive>
               <thead>
-                <tr className = 'center-text-head'>
+                <tr className = 'text-center-header-table'>
                   <th style = { miniatureStyle }>Nro.</th>
                   <th>Cant.</th>
                   <th>Med.</th>
@@ -152,7 +167,7 @@ class ListProducts extends Component {
                 {
                   this.props.productsSale.map((product, index) => {
                     return (
-                      <tr key = { index } className = 'center-text'>
+                      <tr key = { index } className = 'text-center'>
                         <td style = { miniatureStyle }>{ index + 1 }</td>
                         <td>
                           { product.quantity }

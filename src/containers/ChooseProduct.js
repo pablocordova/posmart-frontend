@@ -7,22 +7,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import DetailProduct from './DetailProduct'
 import { loadProducts, showDetailProduct, filterProducts } from '../actions/products'
 
+// Styles
+
 const nameProductStyle = {
   fontFamily: 'Times, "Times New Roman", serif'
 }
 
 const separatorPricesStyle = {
   margin: '15px auto'
-}
-
-const flagPricesStyle = {
-  display: 'inline-block',
-  backgroundColor: 'green',
-  color: 'white',
-  padding: '2px 4px 2px 4px',
-  borderRadius: '5px',
-  textAlign: 'left',
-  marginRight: '1%'
 }
 
 class ChooseProduct extends Component {
@@ -86,7 +78,7 @@ class ChooseProduct extends Component {
                           {
                             product.prices.map((entry, index) => {
                               return (
-                                <div style = { flagPricesStyle } key = { index }>
+                                <div className = 'flag-price-samples' key = { index }>
                                   { entry.quantity }
                                   { ' ' }
                                   { entry.name }

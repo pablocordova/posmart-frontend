@@ -29,7 +29,6 @@ import {
 } from '../actions/sale'
 
 import ViewReceipt from './ViewReceipt'
-import '../styles/Receipts.css'
 
 class Receipts extends Component {
 
@@ -71,7 +70,7 @@ class Receipts extends Component {
               </FormGroup>
               <Table responsive>
                 <thead>
-                  <tr className = 'center-text-head'>
+                  <tr className = 'text-center-header-table'>
                     <th>ID</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -83,12 +82,12 @@ class Receipts extends Component {
                   {
                     this.props.sales.map(sale => {
                       return (
-                        <tr key = { sale._id } className = 'center-text'>
+                        <tr key = { sale._id } className = 'text-center'>
                           <td>{ String(sale._id).substring(0, 8) }</td>
                           <td>{ moment.utc(sale.date).format('DD/MM/YY') }</td>
                           <td>{ moment.utc(sale.date).format('hh:mm:ss a') }</td>
                           <td>{ sale.total }</td>
-                          <td className = 'spread-items'>
+                          <td className = 'spread-two-icons'>
                             <i className = 'fa fa-eye fa-lg' id = { sale._id } onClick = { (e) =>
                               this.props.showCompleteReceipt(e.target.id)
                             }></i>

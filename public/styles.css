@@ -1,7 +1,27 @@
-.row-table-selected tr:hover{
-  background-color: #757575;
-  cursor: pointer;
-  color: white !important;
+.display-inline-block {
+  display: inline-block;
+}
+
+.flag-price-samples {
+  display: inline-block;
+  background-color: green;
+  color: white;
+  padding: 2px 4px 2px 4px;
+  border-radius: 5px;
+  text-align: left;
+  margin-right: 1%;
+}
+
+.format-link-button {
+  color: white;
+  display: block;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.format-link-button:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .margin-top-zero {
@@ -13,6 +33,27 @@
   padding-left: 0 !important;
 }
 
+.row-table-selected tr:hover{
+  background-color: #757575;
+  cursor: pointer;
+  color: white !important;
+}
+
+.spread-two-icons > i {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
 .text-center {
   text-align: center !important;
 }
+
+.text-center-header-table > th {
+  text-align: center !important;
+}
+

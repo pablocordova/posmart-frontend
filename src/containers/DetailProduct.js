@@ -14,7 +14,17 @@ import {
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import { addProductToSale } from '../actions/sale'
 
-import '../styles/DetailProduct.css'
+// Styles
+
+const separatorPricesStyle = {
+  margin: '15px auto'
+}
+
+const formsReducedStyle = {
+  width: '25%',
+  marginLeft: '20px',
+  display: 'inline-block'
+}
 
 class DetailProduct extends Component {
 
@@ -22,13 +32,13 @@ class DetailProduct extends Component {
     return (
       <div>
         <Modal show = { this.props.modal } >
-          <Modal.Header className = 'title-header'>
+          <Modal.Header className = 'text-center'>
             <Modal.Title> { this.props.selectedProduct.name.toUpperCase() } </Modal.Title>
-            <div className = 'block-sample-prices'>
+            <div style = { separatorPricesStyle }>
               {
                 this.props.selectedProduct.prices.map((entry, index) => {
                   return (
-                    <div className = 'sample-prices' key = { index }>
+                    <div className = 'flag-price-samples' key = { index }>
                       { entry.quantity }
                       { ' ' }
                       { entry.name }
@@ -99,7 +109,7 @@ class DetailProduct extends Component {
               <FormGroup>
                 <ControlLabel>Precio por</ControlLabel>
                 <FormControl
-                  className = 'forms-reduced inline-block'
+                  style = { formsReducedStyle }
                   componentClass = 'select'
                   value = { this.props.priceProductFor }
                   onChange = { e => {
@@ -134,7 +144,7 @@ class DetailProduct extends Component {
               <FormGroup>
                 <ControlLabel>Descuento por</ControlLabel>
                 <FormControl
-                  className = 'forms-reduced inline-block'
+                  style = { formsReducedStyle }
                   value = { this.props.discountMeasureProduct }
                   componentClass = 'select'
                   onChange = { e => {
@@ -166,7 +176,7 @@ class DetailProduct extends Component {
                   }
                 </FormControl>
                 <FormControl
-                  className = 'forms-reduced inline-block'
+                  style = { formsReducedStyle }
                   type = 'number'
                   value = { this.props.discountProduct }
                   onChange = { (e) => {
@@ -184,7 +194,7 @@ class DetailProduct extends Component {
               <FormGroup>
                 <ControlLabel>Descuento General</ControlLabel>
                 <FormControl
-                  className = 'forms-reduced inline-block'
+                  style = { formsReducedStyle }
                   type = 'number'
                   value = { this.props.discountGeneralProduct }
                   onChange = { (e) => {
@@ -199,7 +209,7 @@ class DetailProduct extends Component {
                   }}
                 />
               </FormGroup>
-              <FormGroup className = 'right-text'>
+              <FormGroup className = 'text-align-right'>
                 <h2>Total S./{ this.props.totalProduct }</h2>
               </FormGroup>
             </form>
