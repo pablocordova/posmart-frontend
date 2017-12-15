@@ -168,7 +168,7 @@ class DetailProduct extends Component {
                 <FormControl
                   className = 'forms-reduced inline-block'
                   type = 'number'
-                  defaultValue = { 0 }
+                  value = { this.props.discountProduct }
                   onChange = { (e) => {
                     this.props.calculateSaleProduct(
                       this.props.amountProduct,
@@ -186,7 +186,7 @@ class DetailProduct extends Component {
                 <FormControl
                   className = 'forms-reduced inline-block'
                   type = 'number'
-                  defaultValue = { 0 }
+                  value = { this.props.discountGeneralProduct }
                   onChange = { (e) => {
                     this.props.calculateSaleProduct(
                       this.props.amountProduct,

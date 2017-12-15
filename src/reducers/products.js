@@ -136,7 +136,10 @@ const products = (
         unitChosen: action.unitChosen,
         indexChosen: action.indexChosen,
         unitsInPrice: state.selectedProduct.prices[action.indexChosen].items,
-        indexChosenFor: action.indexChosen
+        indexChosenFor: action.indexChosen,
+        indexDiscountFor: action.indexChosen,
+        discountProduct: 0,
+        discountGeneralProduct: 0
       }
     case 'SAVE_UNIT_CHOSEN_FOR':
       return {
