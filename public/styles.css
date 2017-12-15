@@ -3,3 +3,16 @@
   cursor: pointer;
   color: white !important;
 }
+
+.margin-top-zero {
+  margin-top: 0px;
+}
+
+.padding-sides-zero {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.text-center {
+  text-align: center !important;
+}

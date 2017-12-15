@@ -5,8 +5,25 @@ import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import DetailProduct from './DetailProduct'
-import '../styles/ChooseProduct.css'
 import { loadProducts, showDetailProduct, filterProducts } from '../actions/products'
+
+const nameProductStyle = {
+  fontFamily: 'Times, "Times New Roman", serif'
+}
+
+const separatorPricesStyle = {
+  margin: '15px auto'
+}
+
+const flagPricesStyle = {
+  display: 'inline-block',
+  backgroundColor: 'green',
+  color: 'white',
+  padding: '2px 4px 2px 4px',
+  borderRadius: '5px',
+  textAlign: 'left',
+  marginRight: '1%'
+}
 
 class ChooseProduct extends Component {
 
@@ -34,7 +51,7 @@ class ChooseProduct extends Component {
 
     return (
       <div>
-        <h2 className = 'title-product'>PRODUCTO</h2>
+        <h2 className = 'margin-top-zero'>PRODUCTO</h2>
         <form>
           <FormGroup>
             <FormControl
@@ -61,15 +78,15 @@ class ChooseProduct extends Component {
                   return (
                     <TableRow key = { product._id }>
                       {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
-                      <TableRowColumn className = 'row-table'>
-                        <h4 className = 'name-product'>{
+                      <TableRowColumn className = 'padding-sides-zero text-center'>
+                        <h4 style = { nameProductStyle }>{
                           product.name
                         }</h4>
-                        <div className = 'block-sample-prices'>
+                        <div style = { separatorPricesStyle }>
                           {
                             product.prices.map((entry, index) => {
                               return (
-                                <div className = 'sample-prices' key = { index }>
+                                <div style = { flagPricesStyle } key = { index }>
                                   { entry.quantity }
                                   { ' ' }
                                   { entry.name }
