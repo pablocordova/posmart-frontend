@@ -54,11 +54,12 @@ class ChooseProduct extends Component {
           >
             <TableBody
               displayRowCheckbox = { false }
+              className = 'row-table-selected'
             >
               {
                 this.props.productsFiltered.map(product => {
                   return (
-                    <TableRow key = { product._id } >
+                    <TableRow key = { product._id }>
                       {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
                       <TableRowColumn className = 'row-table'>
                         <h4 className = 'name-product'>{

@@ -144,7 +144,7 @@ class ListProducts extends Component {
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className = 'row-table-selected'>
                 {
                   this.props.productsSale.map((product, index) => {
                     return (
