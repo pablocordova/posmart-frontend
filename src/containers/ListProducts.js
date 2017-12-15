@@ -38,6 +38,11 @@ const muiTheme = getMuiTheme({
   }
 });
 
+const miniatureStyle = {
+  color: 'grey',
+  fontSize: 8
+}
+
 class ListProducts extends Component {
 
   constructor() {
@@ -130,8 +135,7 @@ class ListProducts extends Component {
             <Table responsive>
               <thead>
                 <tr className = 'center-text-head'>
-                  <th hidden></th>
-                  <th hidden></th>
+                  <th style = { miniatureStyle }>Nro.</th>
                   <th>Cant.</th>
                   <th>Med.</th>
                   <th>Descripción</th>
@@ -145,8 +149,7 @@ class ListProducts extends Component {
                   this.props.productsSale.map((product, index) => {
                     return (
                       <tr key = { index } className = 'center-text'>
-                        <td hidden = { true }>{ product.product }</td>
-                        <td hidden = { true }>{ product.priceIndex }</td>
+                        <td style = { miniatureStyle }>{ index + 1 }</td>
                         <td>
                           { product.quantity }
                         </td>
