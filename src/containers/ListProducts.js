@@ -75,7 +75,11 @@ class ListProducts extends Component {
                 onClick = { () => {
                   this.props.clearDataSale()
                   this.props.resetClient()
-                  this.props.saveAndPrintSale(this.props.productsSale, this.props.clientIDForSale)
+                  this.props.saveAndPrintSale(
+                    this.props.productsSale,
+                    this.props.clientIDForSale,
+                    this.state.stateSale
+                  )
                 }}
               ></RaisedButton>
               <RaisedButton
@@ -210,8 +214,8 @@ const mapDispatchToProps = dispatch => {
     resetClient() {
       dispatch(resetClient())
     },
-    saveAndPrintSale(productsSale, clientID) {
-      dispatch(saveAndPrintSale(productsSale, clientID))
+    saveAndPrintSale(productsSale, clientID, state) {
+      dispatch(saveAndPrintSale(productsSale, clientID, state))
     },
     saveSale(productsSale, clientID, state) {
       dispatch(saveSale(productsSale, clientID, state))

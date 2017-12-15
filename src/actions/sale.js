@@ -99,12 +99,13 @@ const saveSale = (productsSale, clientID, state) => {
 
 }
 
-const saveAndPrintSale = (productsSale, clientID) => {
+const saveAndPrintSale = (productsSale, clientID, state) => {
 
   return () => {
     return axios.post(
       SERVER_PATH + SALE_PATH,
       {
+        state: state,
         client: clientID,
         products: productsSale
       },
