@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import ChooseProduct from '../containers/ChooseProduct'
-import ListProducts from '../containers/ListProducts'
+import ChooseProduct from './ChooseProduct'
+import ListProducts from './ListProducts'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
