@@ -53,7 +53,7 @@ const products = (
         amountProduct: action.amount,
         priceProduct: action.price,
         //priceProductFor: action.priceFor,
-        discountMeasureProduct: action.discountMeasure,
+        //discountMeasureProduct: action.discountMeasure,
         discountProduct: action.discount,
         discountGeneralProduct: action.discountGeneral
       }
@@ -75,6 +75,13 @@ const products = (
       return {
         ...state,
         priceProductFor: action.measurePrice
+      }
+    }
+    case 'CHANGE_DISCOUNT_MEASURE_FOR':
+    {
+      return {
+        ...state,
+        discountMeasureProduct: action.measurePriceDiscount
       }
     }
     case 'LOAD_PRODUCTS': {

@@ -60,6 +60,13 @@ const changePriceProductFor = (measurePrice) => {
   })
 }
 
+const changeDiscountMeasureFor = (measurePrice) => {
+  return ({
+    type: 'CHANGE_DISCOUNT_MEASURE_FOR',
+    measurePriceDiscount: measurePrice
+  })
+}
+
 const loadProducts = () => {
 
   return dispatch => {
@@ -130,6 +137,7 @@ export {
   calculateSaleProduct,
   calculateSaleProductAlone,
   changePriceProductFor,
+  changeDiscountMeasureFor,
   filterProducts,
   hideDetailProduct,
   loadProducts,

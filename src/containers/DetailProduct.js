@@ -6,6 +6,7 @@ import {
   calculateSaleProductAlone,
   hideDetailProduct,
   changePriceProductFor,
+  changeDiscountMeasureFor,
   saveUnitChosen,
   saveUnitChosenFor,
   saveDiscountChosenFor
@@ -68,6 +69,7 @@ class DetailProduct extends Component {
                       e.target.selectedOptions[0].index
                     )
                     this.props.changePriceProductFor(e.target.value)
+                    this.props.changeDiscountMeasureFor(e.target.value)
                     this.props.calculateSaleProductAlone(
                       this.props.amountProduct,
                       e.target.value,
@@ -93,6 +95,7 @@ class DetailProduct extends Component {
                 </FormControl>
               </FormGroup>
               <hr />
+              <h4>DESCUENTOS</h4>
               <FormGroup>
                 <ControlLabel>Precio por</ControlLabel>
                 <FormControl
@@ -132,8 +135,10 @@ class DetailProduct extends Component {
                 <ControlLabel>Descuento por</ControlLabel>
                 <FormControl
                   className = 'forms-reduced inline-block'
+                  value = { this.props.discountMeasureProduct }
                   componentClass = 'select'
                   onChange = { e => {
+                    this.props.changeDiscountMeasureFor(e.target.value)
                     this.props.saveDiscountChosenFor(
                       e.target.selectedOptions[0].index
                     )
@@ -285,6 +290,9 @@ const mapDispatchToProps = dispatch => {
     },
     changePriceProductFor(measurePrice) {
       dispatch(changePriceProductFor(measurePrice))
+    },
+    changeDiscountMeasureFor(measurePrice) {
+      dispatch(changeDiscountMeasureFor(measurePrice))
     },
     saveUnitChosen(unitChosen, indexChosen) {
       dispatch(saveUnitChosen(unitChosen, indexChosen))
