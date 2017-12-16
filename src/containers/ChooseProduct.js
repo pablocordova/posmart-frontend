@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { FormGroup, FormControl } from 'react-bootstrap'
+import { FormGroup, FormControl, Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+//import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table'
+//import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import DetailProduct from './DetailProduct'
-import { loadProducts, showDetailProduct, filterProducts } from '../actions/products'
-
+import {
+  filterProducts,
+  loadProducts,
+  showDetailProduct
+} from '../actions/products'
 // Styles
 
 const nameProductStyle = {
@@ -50,53 +53,63 @@ class ChooseProduct extends Component {
               type = 'text'
               value = { this.state.textProduct }
               placeholder = 'Buscar Producto'
-              onChange = { e =>this.filterProductss(e) }
+              onChange = { e => this.filterProductss(e) }
             />
           </FormGroup>
         </form>
-        <MuiThemeProvider>
-          <Table
-            height = '450px'
-            onCellClick = { (row) => {
-              this.props.showDetailProduct(true, this.props.productsFiltered[row])
-            }}
+        <Table responsive>
+          <tbody
+            className = 'row-table-selected'
           >
-            <TableBody
-              displayRowCheckbox = { false }
-              className = 'row-table-selected'
-            >
-              {
-                this.props.productsFiltered.map(product => {
-                  return (
-                    <TableRow key = { product._id }>
-                      {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
-                      <TableRowColumn className = 'padding-sides-zero text-center'>
-                        <h4 style = { nameProductStyle }>{
-                          product.name
-                        }</h4>
-                        <div style = { separatorPricesStyle }>
-                          {
-                            product.prices.map((entry, index) => {
-                              return (
-                                <div className = 'flag-price-samples' key = { index }>
-                                  { entry.quantity }
-                                  { ' ' }
-                                  { entry.name }
-                                  { ': S./'}
-                                  { entry.price }
-                                </div>
-                              )
-                            })
-                          }
-                        </div>
-                      </TableRowColumn>
-                    </TableRow>
-                  )
-                })
-              }
-            </TableBody>
-          </Table>
-        </MuiThemeProvider>
+            {
+              this.props.productsFiltered.map(product => {
+                return (
+                  <tr key = { product._id } onClick = { e => {
+                    let index = 0
+                    if (e.target.attributes.index) {
+                      index = parseInt(e.target.attributes.index.value, 10)
+                    }
+
+                    this.props.showDetailProduct(
+                      this.props.productsFiltered[e.currentTarget.rowIndex],
+                      e.target.className,
+                      e.target.id,
+                      index
+                    )
+
+                  } }>
+                    {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
+                    <td className = 'padding-sides-zero text-center'>
+                      <h4 style = { nameProductStyle }>{
+                        product.name
+                      }</h4>
+                      <div style = { separatorPricesStyle }>
+                        {
+                          product.prices.map((entry, index) => {
+                            return (
+                              <div
+                                className = 'flag-price-samples'
+                                key = { index }
+                                id = { entry.price }
+                                index = { index }
+                              >
+                                { entry.quantity }
+                                { ' ' }
+                                { entry.name }
+                                { ': S./'}
+                                { entry.price }
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </Table>
         <DetailProduct/>
       </div>
     )
@@ -112,14 +125,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    filterProducts(string) {
+      dispatch(filterProducts(string))
+    },
     loadProducts() {
       dispatch(loadProducts())
     },
-    showDetailProduct(state, selectedProduct) {
-      dispatch(showDetailProduct(state, selectedProduct))
-    },
-    filterProducts(string) {
-      dispatch(filterProducts(string))
+    showDetailProduct(selectedProduct, className, option, index) {
+      dispatch(showDetailProduct(selectedProduct, className, option, index))
     }
   }
 }

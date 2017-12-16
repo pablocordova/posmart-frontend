@@ -53,14 +53,14 @@ const calculateSaleProductAlone = (
   })
 }
 
-const changePriceProductFor = (measurePrice) => {
+const changePriceProductFor = measurePrice => {
   return ({
     type: 'CHANGE_PRICE_PRODUCT_FOR',
     measurePrice
   })
 }
 
-const changeDiscountMeasureFor = (measurePrice) => {
+const changeDiscountMeasureFor = measurePrice => {
   return ({
     type: 'CHANGE_DISCOUNT_MEASURE_FOR',
     measurePriceDiscount: measurePrice
@@ -95,11 +95,13 @@ const filterProducts = (string) => {
   })
 }
 
-const showDetailProduct = (state, selectedProduct) => {
+const showDetailProduct = (selectedProduct, className, option, index) => {
   return ({
     type: 'SHOW_DETAIL_PRODUCT',
-    modal: state,
-    selectedProduct: selectedProduct
+    selectedProduct: selectedProduct,
+    className,
+    optionFlag: option,
+    indexFlag: index
   })
 }
 

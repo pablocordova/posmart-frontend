@@ -94,24 +94,29 @@ const products = (
         productsFiltered: productsWithPrices
       }
     }
-    case 'SHOW_DETAIL_PRODUCT':
+    case 'SHOW_DETAIL_PRODUCT': {
+      let firstMeasure = action.selectedProduct.prices[0].price
+      if (action.className === 'flag-price-samples') {
+        firstMeasure = action.optionFlag
+      }
       return {
         ...state,
         amountProduct: '1',
-        modal: action.modal,
+        modal: true,
         selectedProduct: action.selectedProduct,
-        priceProduct: action.selectedProduct.prices[0].price,
-        priceProductFor: action.selectedProduct.prices[0].price,
-        totalProduct: parseFloat(action.selectedProduct.prices[0].price),
-        discountMeasureProduct: action.selectedProduct.prices[0].price,
+        priceProduct: firstMeasure,
+        priceProductFor: firstMeasure,
+        totalProduct: parseFloat(firstMeasure),
+        discountMeasureProduct: firstMeasure,
         discountProduct: 0,
         discountGeneralProduct: 0,
-        unitChosen: action.selectedProduct.prices[0].name,
-        indexChosen: 0,
-        indexChosenFor: 0,
-        indexDiscountFor: 0,
-        unitsInPrice: action.selectedProduct.prices[0].items
+        unitChosen: action.selectedProduct.prices[action.indexFlag].name,
+        indexChosen: action.indexFlag,
+        indexChosenFor: action.indexFlag,
+        indexDiscountFor: action.indexFlag,
+        unitsInPrice: action.selectedProduct.prices[action.indexFlag].items
       }
+    }
     case 'FILTER_PRODUCTS': {
       let productsCopy = state.products
       let wordsToSearch = action.string.toLowerCase().split(' ')

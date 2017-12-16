@@ -26,13 +26,21 @@ const formsReducedStyle = {
   display: 'inline-block'
 }
 
+const headerModalStyle = {
+  textAlign: 'center',
+  background: 'black',
+  color: 'white',
+  paddingBottom: '0px',
+  paddingTop: '5px'
+}
+
 class DetailProduct extends Component {
 
   render() {
     return (
       <div>
         <Modal show = { this.props.modal } >
-          <Modal.Header className = 'text-center'>
+          <Modal.Header style = { headerModalStyle}>
             <Modal.Title> { this.props.selectedProduct.name.toUpperCase() } </Modal.Title>
             <div style = { separatorPricesStyle }>
               {
@@ -73,6 +81,7 @@ class DetailProduct extends Component {
                 <ControlLabel>Medida</ControlLabel>
                 <FormControl
                   componentClass = 'select'
+                  value = { this.props.priceProduct }
                   onChange = { e => {
                     this.props.saveUnitChosen(
                       e.target.selectedOptions[0].innerText,
