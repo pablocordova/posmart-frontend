@@ -4,15 +4,7 @@
 // Main module
 import React, { Component } from 'react'
 // Other modules
-import {
-  Table,
-  TableHeader,
-  TableHeaderColumn,
-  TableBody,
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table'
-import { FormGroup, FormControl, Row, Grid, Col } from 'react-bootstrap'
+import { FormGroup, FormControl, Row, Grid, Col, Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 import ContentReply from 'material-ui/svg-icons/content/reply'
@@ -78,39 +70,42 @@ class Client extends Component {
             </Row>
             <Row>
               <Col md = { 12 }>
-                <MuiThemeProvider>
-                  <Table onCellClick = { (index, col) => {
-                    // No event when click in client options
-                    if (col !== 5) {
-                      this.props.clientToSale(index)
-                      this.props.history.push('/sale')
-                    }
-                  }}>
-                    <TableHeader displaySelectAll = { false } adjustForCheckbox = { false }>
-                      <TableRow>
-                        <TableHeaderColumn>Nombres</TableHeaderColumn>
-                        <TableHeaderColumn>Apellidos</TableHeaderColumn>
-                        <TableHeaderColumn>DNI</TableHeaderColumn>
-                        <TableHeaderColumn>Telefono</TableHeaderColumn>
-                        <TableHeaderColumn>Dirección</TableHeaderColumn>
-                        <TableHeaderColumn></TableHeaderColumn>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody displayRowCheckbox = { false }>
-                      {
-                        this.props.clientsFiltered.map(client => {
-                          return (
-                            <TableRow key = { client._id }>
-                              <TableRowColumn>{ client.firstname }</TableRowColumn>
-                              <TableRowColumn>{ client.lastname }</TableRowColumn>
-                              <TableRowColumn>{ client.dni }</TableRowColumn>
-                              <TableRowColumn>{ client.phone }</TableRowColumn>
-                              <TableRowColumn>{ client.address }</TableRowColumn>
-                              <TableRowColumn>
-                                <i className = 'fa fa-pencil' id = { client._id } onClick = { e =>
+                <Table>
+                  <thead>
+                    <tr className = 'text-center-header-table'>
+                      <th>Nombre completo</th>
+                      <th>DNI</th>
+                      <th>Telefono</th>
+                      <th>Dirección</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody className = 'row-table-selected'>
+                    {
+                      this.props.clientsFiltered.map(client => {
+                        return (
+                          <tr key = { client._id } className = 'text-center' onClick = { e => {
+                            if ( typeof e.target.cellIndex !== 'undefined') {
+                              this.props.clientToSale(e.currentTarget.rowIndex - 1)
+                              this.props.history.push('/sale')
+                            }
+                          }}>
+                            <td>{ client.firstname }</td>
+                            <td>{ client.dni }</td>
+                            <td>{ client.phone }</td>
+                            <td>{ client.address }</td>
+                            <td className = 'spread-two-icons'>
+                              <i
+                                className = 'fa fa-pencil fa-lg'
+                                id = { client._id }
+                                onClick = { e =>
                                   this.props.showModifyClient(e.target.id)
-                                }></i>
-                                <i className = 'fa fa-trash' id = { client._id } onClick = { e => {
+                                }
+                              ></i>
+                              <i
+                                className = 'fa fa-trash fa-lg'
+                                id = { client._id }
+                                onClick = { e => {
                                   // First make restriction case only exits 1 client
                                   if (this.props.clients.length === 1) {
                                     swal(
@@ -137,15 +132,14 @@ class Client extends Component {
                                     }
                                   })
                                 }}
-                                ></i>
-                              </TableRowColumn>
-                            </TableRow>
-                          )
-                        })
-                      }
-                    </TableBody>
-                  </Table>
-                </MuiThemeProvider>
+                              ></i>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    }
+                  </tbody>
+                </Table>
               </Col>
             </Row>
           </Grid>

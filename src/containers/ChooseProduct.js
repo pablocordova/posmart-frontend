@@ -64,9 +64,7 @@ class ChooseProduct extends Component {
         </form>
         <div style = { heightTableStyle }>
           <Table>
-            <tbody
-              className = 'row-table-selected'
-            >
+            <tbody className = 'row-table-selected'>
               {
                 this.props.productsFiltered.map(product => {
                   return (

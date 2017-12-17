@@ -30,22 +30,12 @@ class FormClient extends Component {
             </Modal.Header>
             <Modal.Body>
               <FormGroup>
-                <ControlLabel>Nombres</ControlLabel>
+                <ControlLabel>Nombre Completo</ControlLabel>
                 <FormControl
                   type = 'text'
                   defaultValue = { this.props.clientForm.firstname }
                   onChange = { e =>
                     this.props.clientForm.firstname = e.target.value
-                  }
-                />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Apellidos</ControlLabel>
-                <FormControl
-                  type = 'text'
-                  defaultValue = { this.props.clientForm.lastname }
-                  onChange = { e =>
-                    this.props.clientForm.lastname = e.target.value
                   }
                 />
               </FormGroup>
