@@ -36,12 +36,7 @@ const products = (
 
       // Discount for
       const itemsDiscountFor = state.selectedProduct.prices[state.indexDiscountFor].items
-      console.log(itemsDiscountFor)
-      console.log(action.amount)
-      console.log(itemsPrice)
-      console.log(action.discount)
       const discountFor = (action.amount * itemsPrice * action.discount) / itemsDiscountFor
-      console.log(discountFor)
       total = total - discountFor
       // Discount general
       total = total - parseFloat(action.discountGeneral)
@@ -66,7 +61,8 @@ const products = (
       total = _.round(total, 1)
       return {
         ...state,
-        totalProduct: total
+        totalProduct: total,
+        priceProduct: action.price
       }
     }
     case 'CHANGE_PRICE_PRODUCT_FOR':
