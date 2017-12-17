@@ -20,6 +20,11 @@ const separatorPricesStyle = {
   margin: '15px auto'
 }
 
+const heightTableStyle = {
+  height: '450px',
+  overflow: 'scroll'
+}
+
 class ChooseProduct extends Component {
 
   constructor() {
@@ -57,59 +62,61 @@ class ChooseProduct extends Component {
             />
           </FormGroup>
         </form>
-        <Table responsive>
-          <tbody
-            className = 'row-table-selected'
-          >
-            {
-              this.props.productsFiltered.map(product => {
-                return (
-                  <tr key = { product._id } onClick = { e => {
-                    let index = 0
-                    if (e.target.attributes.index) {
-                      index = parseInt(e.target.attributes.index.value, 10)
-                    }
+        <div style = { heightTableStyle }>
+          <Table>
+            <tbody
+              className = 'row-table-selected'
+            >
+              {
+                this.props.productsFiltered.map(product => {
+                  return (
+                    <tr key = { product._id } onClick = { e => {
+                      let index = 0
+                      if (e.target.attributes.index) {
+                        index = parseInt(e.target.attributes.index.value, 10)
+                      }
 
-                    this.props.showDetailProduct(
-                      this.props.productsFiltered[e.currentTarget.rowIndex],
-                      e.target.className,
-                      e.target.id,
-                      index
-                    )
+                      this.props.showDetailProduct(
+                        this.props.productsFiltered[e.currentTarget.rowIndex],
+                        e.target.className,
+                        e.target.id,
+                        index
+                      )
 
-                  } }>
-                    {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
-                    <td className = 'padding-sides-zero text-center'>
-                      <h4 style = { nameProductStyle }>{
-                        product.name
-                      }</h4>
-                      <div style = { separatorPricesStyle }>
-                        {
-                          product.prices.map((entry, index) => {
-                            return (
-                              <div
-                                className = 'flag-price-samples'
-                                key = { index }
-                                id = { entry.price }
-                                index = { index }
-                              >
-                                { entry.quantity }
-                                { ' ' }
-                                { entry.name }
-                                { ': S./'}
-                                { entry.price }
-                              </div>
-                            )
-                          })
-                        }
-                      </div>
-                    </td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </Table>
+                    } }>
+                      {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
+                      <td className = 'padding-sides-zero text-center'>
+                        <h4 style = { nameProductStyle }>{
+                          product.name
+                        }</h4>
+                        <div style = { separatorPricesStyle }>
+                          {
+                            product.prices.map((entry, index) => {
+                              return (
+                                <div
+                                  className = 'flag-price-samples'
+                                  key = { index }
+                                  id = { entry.price }
+                                  index = { index }
+                                >
+                                  { entry.quantity }
+                                  { ' ' }
+                                  { entry.name }
+                                  { ': S./'}
+                                  { entry.price }
+                                </div>
+                              )
+                            })
+                          }
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </Table>
+        </div>
         <DetailProduct/>
       </div>
     )
