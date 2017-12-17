@@ -23,6 +23,10 @@ switch (process.env.REACT_APP_ENV) {
     break;
 }
 
+const backgroundNavbarStyle = {
+  background: '#3F51B5'
+}
+
 class App extends Component {
 
   constructor(){
@@ -67,7 +71,7 @@ class App extends Component {
     return (
       <BrowserRouter basename = { BASE_URL }>
         <div>
-          <Navbar inverse collapseOnSelect>
+          <Navbar inverse collapseOnSelect style = { backgroundNavbarStyle }>
             <Navbar.Header>
               <Navbar.Brand>
                 <a href='/'>POSMART</a>
