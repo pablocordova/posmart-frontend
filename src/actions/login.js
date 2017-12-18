@@ -30,6 +30,7 @@ const login = (email, pass, code) => {
         if (typeof response.data.token !== 'undefined') {
           localStorage.setItem('token', response.data.token)
           localStorage.setItem('username', response.data.username)
+          localStorage.setItem('businessName', response.data.businessName.toUpperCase())
           window.location = BASE_URL.concat('/sale')
         } else {
           console.log('Error login data')

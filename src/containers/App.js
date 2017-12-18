@@ -39,6 +39,7 @@ class App extends Component {
 
   logout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('businessName')
     window.location = '/'
   }
 
@@ -74,7 +75,7 @@ class App extends Component {
           <Navbar inverse collapseOnSelect style = { backgroundNavbarStyle }>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href='/'>POSMART</a>
+                <a href=''>{ localStorage.getItem('businessName') }</a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -98,10 +99,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    username: state.login.username,
-    token: state.login.token
-  }
+  return state
 }
 
 export default connect(
