@@ -11,7 +11,8 @@ class Login extends Component {
     super()
     this.state = {
       email: '',
-      pass: ''
+      pass: '',
+      code: ''
     }
   }
 
@@ -24,6 +25,18 @@ class Login extends Component {
               <h2>INICIAR SESIÓN</h2>
               <MuiThemeProvider>
                 <form>
+                  <FormGroup>
+                    <ControlLabel>Empresa:</ControlLabel>
+                    <FormControl
+                      type = 'text'
+                      placeholder = 'Ingrese Codigo'
+                      onChange = { (event) => {
+                        this.setState({
+                          code: event.target.value
+                        })
+                      }}
+                    />
+                  </FormGroup>
                   <FormGroup>
                     <ControlLabel>Correo:</ControlLabel>
                     <FormControl
@@ -52,7 +65,9 @@ class Login extends Component {
                     <RaisedButton
                       label = 'Entrar'
                       primary = { true }
-                      onClick = { () => { this.props.login(this.state.email, this.state.pass) } }
+                      onClick = { () => {
+                        this.props.login(this.state.email, this.state.pass, this.state.code)
+                      } }
                     />
                   </FormGroup>
                 </form>
@@ -71,8 +86,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login(email, pass) {
-      dispatch(login(email, pass))
+    login(email, pass, code) {
+      dispatch(login(email, pass, code))
     }
   }
 }

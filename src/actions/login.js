@@ -18,13 +18,13 @@ switch (process.env.REACT_APP_ENV) {
     break;
 }
 
-const login = (email, pass) => {
+const login = (email, pass, code) => {
 
   return () => {
     return axios.post(SERVER_PATH + LOGIN_PATH, {
       email: email,
       password: pass,
-      type: 'APP'
+      code: code
     })
       .then(response => {
         if (typeof response.data.token !== 'undefined') {
