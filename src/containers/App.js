@@ -24,7 +24,8 @@ switch (process.env.REACT_APP_ENV) {
 }
 
 const backgroundNavbarStyle = {
-  background: '#3F51B5'
+  background: '#3F51B5',
+  color: 'white'
 }
 
 class App extends Component {
@@ -72,10 +73,10 @@ class App extends Component {
     return (
       <BrowserRouter basename = { BASE_URL }>
         <div>
-          <Navbar inverse collapseOnSelect style = { backgroundNavbarStyle }>
+          <Navbar collapseOnSelect style = { backgroundNavbarStyle }>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href=''>{ localStorage.getItem('businessName') }</a>
+                <a href=''> VENTAS { localStorage.getItem('businessName') }</a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>

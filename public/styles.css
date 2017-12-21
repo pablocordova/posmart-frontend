@@ -4,7 +4,7 @@
 
 .flag-price-samples {
   display: inline-block;
-  background-color: green;
+  background-color: #4CAF50;
   color: white;
   padding: 2px 4px 2px 4px;
   border-radius: 5px;
@@ -35,6 +35,24 @@
   margin-top: 0px;
 }
 
+.navbar-header > a {
+  color: white !important;
+}
+
+.navbar-nav > li > a {
+  color: white !important;
+}
+
+.navbar-nav > .active > a {
+  color: white !important;
+  background-color: #4caf50 !important;
+}
+
+.navbar-nav > .active > a:focus {
+  color: white !important;
+  background-color: #4caf50 !important;
+}
+
 .padding-sides-zero {
   padding-right: 0 !important;
   padding-left: 0 !important;
@@ -62,5 +80,9 @@
 
 .text-center-header-table > th {
   text-align: center !important;
+}
+
+.white-color {
+  color: white !important;
 }
 

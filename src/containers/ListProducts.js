@@ -4,7 +4,7 @@
 // Main module
 import React, { Component } from 'react'
 // Other modules
-import { indigo500, grey500 } from 'material-ui/styles/colors';
+import { indigo500, green500 } from 'material-ui/styles/colors';
 import { Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
-import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
 import _ from 'lodash'
 
 import 'font-awesome/css/font-awesome.min.css';
@@ -35,7 +35,7 @@ import {
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: indigo500,
-    accent1Color: grey500
+    accent1Color: green500
   }
 });
 
@@ -46,15 +46,16 @@ const miniatureStyle = {
 
 const receiptTitleStyle = {
   display: 'inline-block',
-  margin: '0 0 10px 0'
+  margin: '0 0 10px 0',
+  color: '#3F51B5'
 }
 
 const labelClientStyle = {
-  marginRight: '40px',
+  marginLeft: '40px',
   display: 'inline-block'
 }
 
-const creditButtonStyle =  {
+const toggleStyle = {
   marginTop: '10px'
 }
 
@@ -80,7 +81,7 @@ class ListProducts extends Component {
             <div className = 'pull-right'>
               <RaisedButton
                 label = 'GUARDAR E IMPRIMIR'
-                primary = { true }
+                secondary = { true }
                 disabled = { this.props.disabledButton }
                 style = {
                   {
@@ -99,7 +100,6 @@ class ListProducts extends Component {
               ></RaisedButton>
               <RaisedButton
                 label = 'GUARDAR'
-                secondary = { true }
                 disabled = { this.props.disabledButton }
                 style = {
                   {
@@ -118,7 +118,6 @@ class ListProducts extends Component {
               ></RaisedButton>
               <RaisedButton
                 label = 'NUEVO'
-                secondary = { true }
                 disabled = { this.props.disabledButton }
                 onClick = { () => {
                   this.props.clearDataSale()
@@ -128,25 +127,24 @@ class ListProducts extends Component {
             </div>
           </div>
 
-          <h4 style = { labelClientStyle }>Cliente: { this.props.clientNameForSale }</h4>
-          <RaisedButton primary = { true } className = 'display-inline-block'>
-            <Link to = '/client' className = 'format-link-button'>Elegir Cliente</Link>
+          <RaisedButton secondary = { true } className = 'display-inline-block'>
+            <Link to = '/client' className = 'format-link-button'>Cliente</Link>
           </RaisedButton>
-          <div>
-            <Checkbox
-              style = { creditButtonStyle }
-              label = 'Credito'
-              onCheck = { e => {
-                let stateSale = 'Pendiente'
-                if (e.target.checked) {
-                  stateSale = 'Credito'
-                }
-                this.setState({
-                  stateSale: stateSale
-                })
-              }}
-            />
-          </div>
+          <h4 style = { labelClientStyle }>{ this.props.clientNameForSale }</h4>
+          <Toggle
+            label = 'Credito'
+            style = { toggleStyle }
+            labelPosition = 'right'
+            onToggle = { (event, isInputChecked) => {
+              let stateSale = 'Pendiente'
+              if (isInputChecked) {
+                stateSale = 'Credito'
+              }
+              this.setState({
+                stateSale: stateSale
+              })
+            }}
+          />
           <div className = 'text-align-right'>
             <h2 className = 'margin-top-zero'>TOTAL: S/. { this.props.totalSale }</h2>
           </div>

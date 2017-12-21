@@ -14,6 +14,10 @@ import {
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import { addProductToSale } from '../actions/sale'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { indigo500, green500 } from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton'
 // Styles
 
 const separatorPricesStyle = {
@@ -28,11 +32,18 @@ const formsReducedStyle = {
 
 const headerModalStyle = {
   textAlign: 'center',
-  background: 'black',
+  background: '#3F51B5',
   color: 'white',
   paddingBottom: '0px',
   paddingTop: '5px'
 }
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: indigo500,
+    accent1Color: green500
+  }
+});
 
 class DetailProduct extends Component {
 
@@ -223,22 +234,32 @@ class DetailProduct extends Component {
               </FormGroup>
             </form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button onClick = { () => this.props.hideDetailProduct() }>Cancelar</Button>
-            <Button bsStyle = 'primary' onClick = { () => {
-              this.props.addProductToSale(
-                this.props.selectedProduct,
-                this.props.amountProduct,
-                this.props.unitChosen,
-                this.props.indexChosen,
-                this.props.priceProduct - this.props.discountProduct,
-                this.props.totalProduct,
-                this.props.unitsInPrice
-              )
-              this.props.hideDetailProduct()
-            }}
-            >ELEGIR</Button>
-          </Modal.Footer>
+          <MuiThemeProvider muiTheme={ muiTheme }>
+            <Modal.Footer>
+              <RaisedButton
+                label = 'CANCELAR'
+                onClick = { () =>
+                  this.props.hideDetailProduct()
+                }
+              />
+              <RaisedButton
+                label = 'ELEGIR'
+                secondary = { true }
+                onClick = { () => {
+                  this.props.addProductToSale(
+                    this.props.selectedProduct,
+                    this.props.amountProduct,
+                    this.props.unitChosen,
+                    this.props.indexChosen,
+                    this.props.priceProduct - this.props.discountProduct,
+                    this.props.totalProduct,
+                    this.props.unitsInPrice
+                  )
+                  this.props.hideDetailProduct()
+                }}
+              />
+            </Modal.Footer>
+          </MuiThemeProvider>
         </Modal>
       </div>
     )
