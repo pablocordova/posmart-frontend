@@ -49,14 +49,14 @@ const sale = ( state = {
         quantity: action.amountProduct,
         unit: action.unitChosen,
         priceIndex: action.indexChosen,
-        price: _.round(action.priceUnitWithDiscount, 1),
-        total: _.round(action.totalProduct, 1),
+        price: _.round(action.priceUnitWithDiscount, 2),
+        total: _.round(action.totalProduct, 2),
         unitsInPrice: action.unitsInPrice
       }
       return {
         ...state,
         productsSale: state.productsSale.concat(objProductSale),
-        totalSale: _.round(state.totalSale + action.totalProduct, 1),
+        totalSale: _.round(state.totalSale + action.totalProduct, 2),
         disabledButton: false
       }
     }

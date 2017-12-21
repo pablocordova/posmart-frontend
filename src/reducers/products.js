@@ -41,7 +41,7 @@ const products = (
       // Discount general
       total = total - parseFloat(action.discountGeneral)
 
-      total = _.round(total, 1)
+      total = _.round(total, 2)
       return {
         ...state,
         totalProduct: total,
@@ -58,7 +58,7 @@ const products = (
       let total = parseFloat(action.amount) * parseFloat(action.price)
 
       total = total - parseFloat(action.discountGeneral)
-      total = _.round(total, 1)
+      total = _.round(total, 2)
       return {
         ...state,
         totalProduct: total,
