@@ -9,6 +9,10 @@ import { Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+// Icons
+import ActionPrint from 'material-ui/svg-icons/action/print';
+import ContentSave from 'material-ui/svg-icons/content/save';
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -82,6 +86,7 @@ class ListProducts extends Component {
               <RaisedButton
                 label = 'GUARDAR E IMPRIMIR'
                 secondary = { true }
+                icon = { <ActionPrint /> }
                 disabled = { this.props.disabledButton }
                 style = {
                   {
@@ -101,6 +106,7 @@ class ListProducts extends Component {
               <RaisedButton
                 label = 'GUARDAR'
                 disabled = { this.props.disabledButton }
+                icon = { <ContentSave /> }
                 style = {
                   {
                     marginRight: 12
@@ -123,12 +129,15 @@ class ListProducts extends Component {
                   this.props.clearDataSale()
                   this.props.resetClient()
                 }}
-              ></RaisedButton>
+              >
+              </RaisedButton>
             </div>
           </div>
 
           <RaisedButton secondary = { true } className = 'display-inline-block'>
-            <Link to = '/client' className = 'format-link-button'>Cliente</Link>
+            <Link to = '/client' className = 'format-link-button'>
+              <i class = 'fa fa-user'></i>&ensp; Cliente
+            </Link>
           </RaisedButton>
           <h4 style = { labelClientStyle }>{ this.props.clientNameForSale }</h4>
           <Toggle

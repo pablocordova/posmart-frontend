@@ -24,7 +24,7 @@ const separatorPricesStyle = {
 }
 
 const heightTableStyle = {
-  height: '450px',
+  height: '500px',
   overflow: 'scroll'
 }
 

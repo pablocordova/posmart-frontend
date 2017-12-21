@@ -60,12 +60,18 @@ class App extends Component {
       navbarOptions = (
         <Nav pullRight>
           <LinkContainer to = '/sale'>
-            <NavItem eventKey = {1}>Venta</NavItem>
+            <NavItem eventKey = {1}>
+              <i class = 'fa fa-file-text-o'></i>&ensp; Venta
+            </NavItem>
           </LinkContainer>
           <LinkContainer to = '/receipts'>
-            <NavItem eventKey = {2}>Recibos</NavItem>
+            <NavItem eventKey = {2}>
+              <i class = 'fa fa-list'></i>&ensp; Recibos
+            </NavItem>
           </LinkContainer>
-          <NavItem eventKey = {3} onClick = { this.logout }>Salir</NavItem>
+          <NavItem eventKey = {3} onClick = { this.logout }>
+            <i class = 'fa fa-sign-out'></i>&ensp; Salir
+          </NavItem>
         </Nav>
       )
     }

@@ -4,11 +4,14 @@
 // Main module
 import React, { Component } from 'react'
 // Other modules
-import { FormGroup, FormControl, Row, Grid, Col, Table } from 'react-bootstrap'
+import { Row, Grid, Col, Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { green500, indigo500 } from 'material-ui/styles/colors';
+import TextField from 'material-ui/TextField';
 
 import ContentReply from 'material-ui/svg-icons/content/reply'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton'
 import swal from 'sweetalert2'
 
@@ -26,6 +29,21 @@ import {
 
 import FormClient from './FormClient'
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: indigo500,
+    accent1Color: green500
+  }
+});
+
+const underlineStyle =  {
+  borderColor: green500
+}
+
+const floatingLabelStyle = {
+  color: indigo500
+}
+
 class Client extends Component {
 
   render() {
@@ -34,29 +52,29 @@ class Client extends Component {
         <form>
           <Grid>
             <Row>
-              <MuiThemeProvider>
+              <MuiThemeProvider muiTheme={ muiTheme }>
                 <Col md = { 12 }>
+                  <div>
+                    <TextField
+                      hintText="Nombre completo"
+                      floatingLabelText="BUSCAR CLIENTE"
+                      underlineFocusStyle = { underlineStyle }
+                      floatingLabelStyle = { floatingLabelStyle }
+                      onChange = { e =>
+                        this.props.filterClients(e.target.value)
+                      }
+                    />
+                  </div>
                   <RaisedButton
                     label = 'VENTA'
-                    primary = { true }
                     icon = { <ContentReply/> }
                     onClick = { () =>
                       this.props.history.push('/sale')
                     }
                   ></RaisedButton>
-                  <h2>CLIENTES</h2>
-                  <FormGroup>
-                    <FormControl
-                      type = 'text'
-                      placeholder = 'Buscar cliente por nombre'
-                      onChange = { e =>
-                        this.props.filterClients(e.target.value)
-                      }
-                    />
-                  </FormGroup>
                   <RaisedButton
                     label = 'NUEVO'
-                    primary = { true }
+                    secondary = { true }
                     onClick = { () =>
                       this.props.showCreateClient()
                     }
