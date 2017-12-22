@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 
 import moment from 'moment'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { green500, indigo500 } from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton'
 import _ from 'lodash'
 
@@ -18,19 +20,33 @@ import {
   printSale
 } from '../actions/receipts'
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: indigo500,
+    accent1Color: green500
+  }
+});
+
+const headerModalStyle = {
+  textAlign: 'center',
+  background: '#3F51B5',
+  color: 'white',
+  paddingBottom: '10px',
+  paddingTop: '15px'
+}
+
 class ViewReceipt extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
           <Modal show = { this.props.isVisibleCompleteReceipt }>
-            <Modal.Header>
+            <Modal.Header style = { headerModalStyle}>
               <Modal.Title>NOTA DE VENTA
                 <RaisedButton
                   label = 'IMPRIMIR'
                   className = 'pull-right'
-                  primary = { true }
                   onClick = { () => {
                     this.props.printSale(this.props.saleSelected._id)
                     this.props.hideCompleteReceipt()
@@ -75,7 +91,7 @@ class ViewReceipt extends Component {
             <Modal.Footer>
               <RaisedButton
                 label = 'OK'
-                primary = { true }
+                secondary = { true }
                 onClick = { () =>
                   this.props.hideCompleteReceipt()
                 }

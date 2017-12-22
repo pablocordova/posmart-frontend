@@ -61,16 +61,16 @@ class App extends Component {
         <Nav pullRight>
           <LinkContainer to = '/sale'>
             <NavItem eventKey = {1}>
-              <i class = 'fa fa-file-text-o'></i>&ensp; Venta
+              <i className = 'fa fa-file-text-o'></i>&ensp; Venta
             </NavItem>
           </LinkContainer>
           <LinkContainer to = '/receipts'>
             <NavItem eventKey = {2}>
-              <i class = 'fa fa-list'></i>&ensp; Recibos
+              <i className = 'fa fa-list'></i>&ensp; Recibos
             </NavItem>
           </LinkContainer>
           <NavItem eventKey = {3} onClick = { this.logout }>
-            <i class = 'fa fa-sign-out'></i>&ensp; Salir
+            <i className = 'fa fa-sign-out'></i>&ensp; Salir
           </NavItem>
         </Nav>
       )

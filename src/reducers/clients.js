@@ -14,7 +14,7 @@ const clients = (
     },
     clients: [],
     clientSelected: '',
-    titleFormClient: 'CREAR CLIENTE',
+    titleFormClient: 'CREAR',
     isVisibleFormClients: false
   },
   action
@@ -72,7 +72,7 @@ const clients = (
           address: '',
         },
         isVisibleFormClients: true,
-        titleFormClient: 'CREAR CLIENT'
+        titleFormClient: 'CREAR'
       }
     case 'SHOW_MODIFY_CLIENT':{
       let clientSelected = state.clients.filter( client =>
@@ -91,7 +91,7 @@ const clients = (
           address: clientSelected.address,
         },
         isVisibleFormClients: true,
-        titleFormClient: 'MODIFICAR CLIENT'
+        titleFormClient: 'MODIFICAR'
       }
     }
     default:

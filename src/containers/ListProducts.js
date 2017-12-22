@@ -136,7 +136,7 @@ class ListProducts extends Component {
 
           <RaisedButton secondary = { true } className = 'display-inline-block'>
             <Link to = '/client' className = 'format-link-button'>
-              <i class = 'fa fa-user'></i>&ensp; Cliente
+              <i className = 'fa fa-user'></i>&ensp; Cliente
             </Link>
           </RaisedButton>
           <h4 style = { labelClientStyle }>{ this.props.clientNameForSale }</h4>

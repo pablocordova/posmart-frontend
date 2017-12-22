@@ -3,12 +3,12 @@ import React, { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import moment from 'moment'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
+import { green500, indigo500 } from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import TextField from 'material-ui/TextField';
 import {
-  ControlLabel,
   Table,
   FormGroup,
-  FormControl,
   Grid,
   Row
 } from 'react-bootstrap'
@@ -30,38 +30,55 @@ import {
 
 import ViewReceipt from './ViewReceipt'
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: indigo500,
+    accent1Color: green500
+  }
+});
+
+const underlineStyle =  {
+  borderColor: green500
+}
+
+const floatingLabelStyle = {
+  color: indigo500
+}
+
+const buttonSearchStyle = {
+  marginLeft: '15px'
+}
+
 class Receipts extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={ muiTheme }>
         <Grid>
           <Row>
             <div>
-              <h2>RECIBOS</h2>
-              <FormGroup>
-                <ControlLabel>ID:</ControlLabel>
-                <FormControl
-                  type = 'text'
-                  placeholder = 'ticket id'
-                  onChange = { e =>
-                    this.props.saveIDToSearch(e.target.value)
-                  }
-                />
-              </FormGroup>
+              <TextField
+                hintText="Id del recibo"
+                floatingLabelText="BUSCAR POR ID"
+                underlineFocusStyle = { underlineStyle }
+                floatingLabelStyle = { floatingLabelStyle }
+                onChange = { e =>
+                  this.props.saveIDToSearch(e.target.value)
+                }
+              />
               <RaisedButton
-                label = 'Obtener'
-                primary = { true }
+                label = 'Buscar'
+                secondary = { true }
+                style = { buttonSearchStyle }
                 onClick = { () =>
                   this.props.getReceiptById(this.props.idToSearch)
                 }
               ></RaisedButton>
               <FormGroup>
-                <ControlLabel>10 Ultimos:</ControlLabel>
                 <div>
                   <RaisedButton
-                    label = 'Obtener'
-                    primary = { true }
+                    label = 'Ultimos 10'
+                    secondary = { true }
                     onClick = { () =>
                       this.props.getLastReceipts()
                     }

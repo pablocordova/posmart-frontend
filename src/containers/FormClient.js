@@ -8,6 +8,8 @@ import { Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { indigo500, green500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton'
 
 // -- Own Modules
@@ -18,14 +20,29 @@ import {
   updateClient
 } from '../actions/clients'
 
+const headerModalStyle = {
+  textAlign: 'center',
+  background: '#3F51B5',
+  color: 'white',
+  paddingBottom: '10px',
+  paddingTop: '15px'
+}
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: indigo500,
+    accent1Color: green500
+  }
+});
+
 class FormClient extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
           <Modal show = { this.props.isVisibleFormClients }>
-            <Modal.Header>
+            <Modal.Header style = { headerModalStyle}>
               <Modal.Title>{ this.props.titleFormClient }</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -73,7 +90,6 @@ class FormClient extends Component {
             <Modal.Footer>
               <RaisedButton
                 label = 'CANCELAR'
-                primary = { true }
                 onClick = { () =>
                   this.props.hideClientForm()
                 }
