@@ -57,7 +57,7 @@ class Client extends Component {
                   <div>
                     <TextField
                       hintText="Nombre completo"
-                      floatingLabelText="BUSCAR CLIENTE"
+                      floatingLabelText="FILTRAR CLIENTE"
                       underlineFocusStyle = { underlineStyle }
                       floatingLabelStyle = { floatingLabelStyle }
                       onChange = { e =>

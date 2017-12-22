@@ -65,7 +65,7 @@ class ChooseProduct extends Component {
         <div>
           <TextField
             hintText="Descripcion del producto"
-            floatingLabelText="BUSCAR PRODUCTO"
+            floatingLabelText="FILTRAR PRODUCTO"
             underlineFocusStyle = { underlineStyle }
             floatingLabelStyle = { floatingLabelStyle }
             value = { this.state.textProduct }
