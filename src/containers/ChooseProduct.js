@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader'
 
 import DetailProduct from './DetailProduct'
 import {
@@ -71,59 +72,68 @@ class ChooseProduct extends Component {
             value = { this.state.textProduct }
             onChange = { e => this.filterProductss(e) }
           />
-          <div style = { heightTableStyle }>
-            <Table>
-              <tbody className = 'row-table-selected'>
-                {
-                  this.props.productsFiltered.map(product => {
-                    return (
-                      <tr key = { product._id } onClick = { e => {
-                        let index = 0
-                        if (e.target.attributes.index) {
-                          index = parseInt(e.target.attributes.index.value, 10)
-                        }
+          <OverlayLoader
+            color = { 'green' }
+            loader = 'ScaleLoader'
+            text = 'Cargando...'
+            active = { this.props.stateLoader }
+            backgroundColor = {'black'}
+            opacity = '.4'
+          >
+            <div style = { heightTableStyle }>
+              <Table>
+                <tbody className = 'row-table-selected'>
+                  {
+                    this.props.productsFiltered.map(product => {
+                      return (
+                        <tr key = { product._id } onClick = { e => {
+                          let index = 0
+                          if (e.target.attributes.index) {
+                            index = parseInt(e.target.attributes.index.value, 10)
+                          }
 
-                        this.props.showDetailProduct(
-                          this.props.productsFiltered[e.currentTarget.rowIndex],
-                          e.target.className,
-                          e.target.id,
-                          index
-                        )
+                          this.props.showDetailProduct(
+                            this.props.productsFiltered[e.currentTarget.rowIndex],
+                            e.target.className,
+                            e.target.id,
+                            index
+                          )
 
-                      } }>
-                        {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
-                        <td className = 'padding-sides-zero text-center'>
-                          <h4 style = { nameProductStyle }>{
-                            product.name
-                          }</h4>
-                          <div style = { separatorPricesStyle }>
-                            {
-                              product.prices.map((entry, index) => {
-                                return (
-                                  <div
-                                    className = 'flag-price-samples'
-                                    key = { index }
-                                    id = { entry.price }
-                                    index = { index }
-                                  >
-                                    { entry.quantity }
-                                    { ' ' }
-                                    { entry.name }
-                                    { ': S./'}
-                                    { entry.price }
-                                  </div>
-                                )
-                              })
-                            }
-                          </div>
-                        </td>
-                      </tr>
-                    )
-                  })
-                }
-              </tbody>
-            </Table>
-          </div>
+                        } }>
+                          {/* <TableRowColumn>{ product.picture }</TableRowColumn> */}
+                          <td className = 'padding-sides-zero text-center'>
+                            <h4 style = { nameProductStyle }>{
+                              product.name
+                            }</h4>
+                            <div style = { separatorPricesStyle }>
+                              {
+                                product.prices.map((entry, index) => {
+                                  return (
+                                    <div
+                                      className = 'flag-price-samples'
+                                      key = { index }
+                                      id = { entry.price }
+                                      index = { index }
+                                    >
+                                      { entry.quantity }
+                                      { ' ' }
+                                      { entry.name }
+                                      { ': S./'}
+                                      { entry.price }
+                                    </div>
+                                  )
+                                })
+                              }
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
+            </div>
+          </OverlayLoader>
           <DetailProduct/>
         </div>
       </MuiThemeProvider>
@@ -134,7 +144,8 @@ class ChooseProduct extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products.products,
-    productsFiltered: state.products.productsFiltered
+    productsFiltered: state.products.productsFiltered,
+    stateLoader: state.products.stateLoader
   }
 }
 

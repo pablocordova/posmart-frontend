@@ -20,7 +20,8 @@ const products = (
     indexChosen: 0,
     unitsInPrice: 1,
     indexChosenFor: 0,
-    indexDiscountFor: 0
+    indexDiscountFor: 0,
+    stateLoader: true
   },
   action
 ) => {
@@ -87,7 +88,8 @@ const products = (
       return {
         ...state,
         products: productsWithPrices,
-        productsFiltered: productsWithPrices
+        productsFiltered: productsWithPrices,
+        stateLoader: false
       }
     }
     case 'SHOW_DETAIL_PRODUCT': {
