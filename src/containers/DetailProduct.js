@@ -27,7 +27,8 @@ const separatorPricesStyle = {
 const formsReducedStyle = {
   width: '25%',
   marginLeft: '20px',
-  display: 'inline-block'
+  display: 'inline-block',
+  marginBottom: '0px'
 }
 
 const headerModalStyle = {
@@ -46,6 +47,28 @@ const muiTheme = getMuiTheme({
 });
 
 class DetailProduct extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      validation: {
+        quantity: null,
+        discountBy: null,
+        discountGeneral: null
+      }
+    }
+  }
+
+  cleanValidations() {
+    this.setState(prevState  => ({
+      validation: {
+        ...prevState.validation,
+        quantity: null,
+        discountBy: null,
+        discountGeneral: null
+      }
+    }))
+  }
 
   render() {
     return (
@@ -71,12 +94,24 @@ class DetailProduct extends Component {
           </Modal.Header>
           <Modal.Body>
             <form>
-              <FormGroup>
+              <FormGroup validationState = { this.state.validation.quantity }>
                 <ControlLabel>Cantidad</ControlLabel>
                 <FormControl
                   type = 'number'
                   defaultValue = { 1 }
-                  onChange = { (e) =>
+                  onChange = { e => {
+                    // Validation
+                    let stateQuantity = null
+                    if (e.target.value <= 0) {
+                      stateQuantity = 'error'
+                    }
+                    this.setState(prevState  => ({
+                      validation: {
+                        ...prevState.validation,
+                        quantity: stateQuantity
+                      }
+                    }))
+                    // Functions
                     this.props.calculateSaleProduct(
                       e.target.value,
                       this.props.priceProduct,
@@ -85,7 +120,7 @@ class DetailProduct extends Component {
                       this.props.discountProduct,
                       this.props.discountGeneralProduct
                     )
-                  }
+                  }}
                 />
               </FormGroup>
               <FormGroup>
@@ -195,29 +230,57 @@ class DetailProduct extends Component {
                     })
                   }
                 </FormControl>
-                <FormControl
+                <FormGroup
+                  validationState = { this.state.validation.discountBy }
                   style = { formsReducedStyle }
-                  type = 'number'
-                  value = { this.props.discountProduct }
-                  onChange = { (e) => {
-                    this.props.calculateSaleProduct(
-                      this.props.amountProduct,
-                      this.props.priceProduct,
-                      this.props.priceProductFor,
-                      this.props.discountMeasureProduct,
-                      e.target.value,
-                      this.props.discountGeneralProduct
-                    )
-                  }}
-                />
+                >
+                  <FormControl
+                    type = 'number'
+                    value = { this.props.discountProduct }
+                    onChange = { (e) => {
+                      // Validations
+                      let stateDiscountBy = null
+                      if (e.target.value < 0) {
+                        stateDiscountBy = 'error'
+                      }
+                      this.setState(prevState  => ({
+                        validation: {
+                          ...prevState.validation,
+                          discountBy: stateDiscountBy
+                        }
+                      }))
+                      // Functions
+                      this.props.calculateSaleProduct(
+                        this.props.amountProduct,
+                        this.props.priceProduct,
+                        this.props.priceProductFor,
+                        this.props.discountMeasureProduct,
+                        e.target.value,
+                        this.props.discountGeneralProduct
+                      )
+                    }}
+                  />
+                </FormGroup>
               </FormGroup>
-              <FormGroup>
+              <FormGroup validationState = { this.state.validation.discountGeneral }>
                 <ControlLabel>Descuento General</ControlLabel>
                 <FormControl
-                  style = { formsReducedStyle }
                   type = 'number'
                   value = { this.props.discountGeneralProduct }
+                  style = { formsReducedStyle }
                   onChange = { (e) => {
+                    // Validations
+                    let stateDiscountGeneral = null
+                    if (e.target.value < 0) {
+                      stateDiscountGeneral = 'error'
+                    }
+                    this.setState(prevState  => ({
+                      validation: {
+                        ...prevState.validation,
+                        discountGeneral: stateDiscountGeneral
+                      }
+                    }))
+                    // Functions
                     this.props.calculateSaleProduct(
                       this.props.amountProduct,
                       this.props.priceProduct,
@@ -238,24 +301,31 @@ class DetailProduct extends Component {
             <Modal.Footer>
               <RaisedButton
                 label = 'CANCELAR'
-                onClick = { () =>
+                onClick = { () => {
                   this.props.hideDetailProduct()
-                }
+                  this.cleanValidations()
+                }}
               />
               <RaisedButton
                 label = 'ELEGIR'
                 secondary = { true }
                 onClick = { () => {
-                  this.props.addProductToSale(
-                    this.props.selectedProduct,
-                    this.props.amountProduct,
-                    this.props.unitChosen,
-                    this.props.indexChosen,
-                    this.props.priceProduct - this.props.discountProduct,
-                    this.props.totalProduct,
-                    this.props.unitsInPrice
-                  )
-                  this.props.hideDetailProduct()
+                  const quantity = this.state.validation.quantity
+                  const disBy = this.state.validation.discountBy
+                  const disGeneral = this.state.validation.discountGeneral
+                  // Only if there are not error in forms
+                  if (quantity !== 'error' && disBy !== 'error' && disGeneral !== 'error') {
+                    this.props.addProductToSale(
+                      this.props.selectedProduct,
+                      this.props.amountProduct,
+                      this.props.unitChosen,
+                      this.props.indexChosen,
+                      this.props.priceProduct - this.props.discountProduct,
+                      this.props.totalProduct,
+                      this.props.unitsInPrice
+                    )
+                    this.props.hideDetailProduct()
+                  }
                 }}
               />
             </Modal.Footer>

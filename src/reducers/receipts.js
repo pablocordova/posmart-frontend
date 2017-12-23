@@ -21,11 +21,16 @@ const receipts = ( state = {
         ...state,
         sales: action.receipt
       }
-    case 'LOAD_RECEIPT_ONE':
+    case 'LOAD_RECEIPT_ONE': {
+      let sales = []
+      if (action.receipt !== '') {
+        sales = [ action.receipt ]
+      }
       return {
         ...state,
-        sales: [ action.receipt ]
+        sales: sales
       }
+    }
     case 'SAVE_ID_TO_SEARCH':
       return {
         ...state,

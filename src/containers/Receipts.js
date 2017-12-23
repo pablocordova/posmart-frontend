@@ -70,9 +70,11 @@ class Receipts extends Component {
                 label = 'Buscar'
                 secondary = { true }
                 style = { buttonSearchStyle }
-                onClick = { () =>
-                  this.props.getReceiptById(this.props.idToSearch)
-                }
+                onClick = { () => {
+                  if (this.props.idToSearch.trim() !== '') {
+                    this.props.getReceiptById(this.props.idToSearch)
+                  }
+                }}
               ></RaisedButton>
               <FormGroup>
                 <div>
@@ -132,7 +134,6 @@ class Receipts extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.receipts.sales)
   return {
     sales: state.receipts.sales,
     idToSearch: state.receipts.idToSearch

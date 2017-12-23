@@ -37,6 +37,24 @@ const muiTheme = getMuiTheme({
 
 class FormClient extends Component {
 
+  constructor() {
+    super()
+    this.state = {
+      validation: {
+        name: null
+      }
+    }
+  }
+
+  cleanValidations() {
+    this.setState(prevState  => ({
+      validation: {
+        ...prevState.validation,
+        name: null
+      }
+    }))
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={ muiTheme }>
@@ -46,14 +64,25 @@ class FormClient extends Component {
               <Modal.Title>{ this.props.titleFormClient }</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <FormGroup>
+              <FormGroup validationState = { this.state.validation.name }>
                 <ControlLabel>Nombre Completo</ControlLabel>
                 <FormControl
                   type = 'text'
                   defaultValue = { this.props.clientForm.firstname }
-                  onChange = { e =>
+                  onChange = { e => {
                     this.props.clientForm.firstname = e.target.value
-                  }
+                    // Validations
+                    let stateName = null
+                    if (e.target.value.trim() === '') {
+                      stateName = 'error'
+                    }
+                    this.setState(prevState  => ({
+                      validation: {
+                        ...prevState.validation,
+                        name: stateName
+                      }
+                    }))
+                  }}
                 />
               </FormGroup>
               <FormGroup>
@@ -90,20 +119,31 @@ class FormClient extends Component {
             <Modal.Footer>
               <RaisedButton
                 label = 'CANCELAR'
-                onClick = { () =>
+                onClick = { () => {
                   this.props.hideClientForm()
-                }
+                  this.cleanValidations()
+                }}
               />
               <RaisedButton
                 label = { this.props.buttonFormClient }
                 secondary = { true }
                 onClick = { () => {
-                  if (this.props.clientForm.id === '') {
-                    this.props.createClient(this.props.clientForm)
+                  const name = this.state.validation.name
+                  if (name !== 'error' && this.props.clientForm.firstname.trim() !== '') {
+                    if (this.props.clientForm.id === '') {
+                      this.props.createClient(this.props.clientForm)
+                    } else {
+                      this.props.updateClient(this.props.clientForm)
+                    }
+                    this.props.hideClientForm()
                   } else {
-                    this.props.updateClient(this.props.clientForm)
+                    this.setState(prevState  => ({
+                      validation: {
+                        ...prevState.validation,
+                        name: 'error'
+                      }
+                    }))
                   }
-                  this.props.hideClientForm()
                 }}
               />
             </Modal.Footer>
