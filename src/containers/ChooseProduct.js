@@ -5,6 +5,7 @@ import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader'
 
 import DetailProduct from './DetailProduct'
 import {
+  activateStateLoader,
   filterProducts,
   loadProducts,
   showDetailProduct
@@ -13,6 +14,8 @@ import {
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo500 } from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import ActionCached from 'material-ui/svg-icons/action/cached';
 
 // Styles
 
@@ -65,13 +68,22 @@ class ChooseProduct extends Component {
       <MuiThemeProvider>
         <div>
           <TextField
-            hintText="Descripcion del producto"
-            floatingLabelText="FILTRAR PRODUCTO"
+            hintText = 'Descripcion del producto'
+            floatingLabelText = 'FILTRAR PRODUCTO'
             underlineFocusStyle = { underlineStyle }
             floatingLabelStyle = { floatingLabelStyle }
             value = { this.state.textProduct }
             onChange = { e => this.filterProductss(e) }
           />
+          <IconButton
+            tooltip = 'Actualizar productos'
+            onClick = { () => {
+              this.props.activateStateLoader()
+              this.props.loadProducts()
+            }}
+          >
+            <ActionCached />
+          </IconButton>
           <OverlayLoader
             color = { 'green' }
             loader = 'ScaleLoader'
@@ -151,6 +163,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    activateStateLoader() {
+      dispatch(activateStateLoader())
+    },
     filterProducts(string) {
       dispatch(filterProducts(string))
     },

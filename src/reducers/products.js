@@ -27,6 +27,13 @@ const products = (
 ) => {
 
   switch (action.type) {
+    case 'ACTIVATE_STATE_LOADER':
+    {
+      return {
+        ...state,
+        stateLoader: true
+      }
+    }
     case 'CALCULATE_SALE_PRODUCT':
     {
       //let total = parseFloat(action.amount) * parseFloat(action.price) -

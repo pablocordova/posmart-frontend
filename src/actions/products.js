@@ -15,6 +15,12 @@ switch (process.env.REACT_APP_ENV) {
     break;
 }
 
+const activateStateLoader = () => {
+  return ({
+    type: 'ACTIVATE_STATE_LOADER'
+  })
+}
+
 const calculateSaleProduct = (
   amount,
   price,
@@ -136,6 +142,7 @@ const saveDiscountChosenFor = (indexDiscountFor) => {
 
 
 export {
+  activateStateLoader,
   calculateSaleProduct,
   calculateSaleProductAlone,
   changePriceProductFor,
