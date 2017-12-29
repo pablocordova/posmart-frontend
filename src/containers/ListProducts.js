@@ -186,7 +186,7 @@ class ListProducts extends Component {
                           { product.name }
                         </td>
                         <td>
-                          { _.round(product.total / (product.unitsInPrice * product.quantity), 2) }
+                          { _.round(product.total / product.quantity, 2) }
                         </td>
                         <td>
                           { product.total }
