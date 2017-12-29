@@ -18,6 +18,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { indigo500, green500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton'
+
+import swal from 'sweetalert2'
 // Styles
 
 const separatorPricesStyle = {
@@ -315,16 +317,59 @@ class DetailProduct extends Component {
                   const disGeneral = this.state.validation.discountGeneral
                   // Only if there are not error in forms
                   if (quantity !== 'error' && disBy !== 'error' && disGeneral !== 'error') {
-                    this.props.addProductToSale(
-                      this.props.selectedProduct,
-                      this.props.amountProduct,
-                      this.props.unitChosen,
-                      this.props.indexChosen,
-                      this.props.priceProduct - this.props.discountProduct,
-                      this.props.totalProduct,
-                      this.props.unitsInPrice
-                    )
-                    this.props.hideDetailProduct()
+                    // Calculate if the product is selling above the unit cost
+                    let realCost = this.props.selectedProduct.unitCost * this.props.unitsInPrice
+                    let givenCost = this.props.totalProduct / this.props.amountProduct
+
+                    let addProductToSaleMethod = this.props.addProductToSale
+                    let hideDetailProductMethod = this.props.hideDetailProduct
+
+                    let selectedProduct = this.props.selectedProduct
+                    let amountProduct = this.props.amountProduct
+                    let unitChosen = this.props.unitChosen
+                    let indexChosen = this.props.indexChosen
+                    let totalPrice = this.props.priceProduct - this.props.discountProduct
+                    let totalProduct = this.props.totalProduct
+                    let unitsInPrice = this.props.unitsInPrice
+                    if (givenCost < realCost) {
+
+                      swal({
+                        title: 'Tendrá cero o negativa ganancia en este producto',
+                        text: 'El costo por ' + this.props.unitChosen + ' es : S./' + realCost +
+                          ' y usted lo esta vendiendo a : S./' + givenCost,
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Vender',
+                        cancelButtonText: 'Cancelar'
+                      }).then(function (result) {
+                        if (result.value) {
+                          addProductToSaleMethod(
+                            selectedProduct,
+                            amountProduct,
+                            unitChosen,
+                            indexChosen,
+                            totalPrice,
+                            totalProduct,
+                            unitsInPrice
+                          )
+                          hideDetailProductMethod()
+                        }
+                      })
+
+                    } else {
+                      this.props.addProductToSale(
+                        this.props.selectedProduct,
+                        this.props.amountProduct,
+                        this.props.unitChosen,
+                        this.props.indexChosen,
+                        this.props.priceProduct - this.props.discountProduct,
+                        this.props.totalProduct,
+                        this.props.unitsInPrice
+                      )
+                      this.props.hideDetailProduct()
+                    }
                   }
                 }}
               />
@@ -338,6 +383,8 @@ class DetailProduct extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('selected product beatch')
+  console.log(state.products.selectedProduct)
   return {
     discountMeasureProduct: state.products.discountMeasureProduct,
     discountProduct: state.products.discountProduct,
