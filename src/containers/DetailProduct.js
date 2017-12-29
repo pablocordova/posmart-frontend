@@ -383,8 +383,6 @@ class DetailProduct extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('selected product beatch')
-  console.log(state.products.selectedProduct)
   return {
     discountMeasureProduct: state.products.discountMeasureProduct,
     discountProduct: state.products.discountProduct,
