@@ -31,6 +31,8 @@ const login = (email, pass, code) => {
           localStorage.setItem('token', response.data.token)
           localStorage.setItem('username', response.data.username)
           localStorage.setItem('businessName', response.data.businessName.toUpperCase())
+          localStorage.setItem('permissionDiscount', response.data.permissionDiscount)
+          localStorage.setItem('permissionPin', response.data.permissionPin)
           window.location = BASE_URL.concat('/sale')
         } else {
           console.log('Error login data')
