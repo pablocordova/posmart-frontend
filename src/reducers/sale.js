@@ -3,7 +3,8 @@ import _ from 'lodash'
 const sale = ( state = {
   productsSale: [],
   totalSale: 0,
-  disabledButton: true
+  disabledButton: true,
+  stateSale: 'Pendiente'
 }, action) => {
 
   switch (action.type) {
@@ -74,6 +75,11 @@ const sale = ( state = {
         disabledButton: disabled
       }
     }
+    case 'UPDATE_STATE_SALE':
+      return {
+        ...state,
+        stateSale: action.stateSale
+      }
     default:
       return state
   }

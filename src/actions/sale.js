@@ -144,11 +144,19 @@ const saveAndPrintSale = (productsSale, clientID, state) => {
 
 }
 
+const updateStateSale = (stateSale) => {
+  return ({
+    type: 'UPDATE_STATE_SALE',
+    stateSale
+  })
+}
+
 export {
   addProductToSale,
   clearDataSale,
   copyReceiptToSale,
   deleteProductInSale,
   saveSale,
-  saveAndPrintSale
+  saveAndPrintSale,
+  updateStateSale
 }

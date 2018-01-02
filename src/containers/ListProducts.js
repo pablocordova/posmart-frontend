@@ -26,7 +26,8 @@ import {
   clearDataSale,
   deleteProductInSale,
   saveSale,
-  saveAndPrintSale
+  saveAndPrintSale,
+  updateStateSale
 } from '../actions/sale'
 
 import {
@@ -65,13 +66,6 @@ const toggleStyle = {
 
 class ListProducts extends Component {
 
-  constructor() {
-    super()
-    this.state = {
-      stateSale: 'Pendiente'
-    }
-  }
-
   componentDidMount() {
     this.props.loadClients()
   }
@@ -99,7 +93,7 @@ class ListProducts extends Component {
                   this.props.saveAndPrintSale(
                     this.props.productsSale,
                     this.props.clientIDForSale,
-                    this.state.stateSale
+                    this.props.stateSale
                   )
                 }}
               ></RaisedButton>
@@ -118,7 +112,7 @@ class ListProducts extends Component {
                   this.props.saveSale(
                     this.props.productsSale,
                     this.props.clientIDForSale,
-                    this.state.stateSale
+                    this.props.stateSale
                   )
                 }}
               ></RaisedButton>
@@ -143,15 +137,14 @@ class ListProducts extends Component {
           <Toggle
             label = 'Credito'
             style = { toggleStyle }
+            toggled = { this.props.stateSale === 'Credito' }
             labelPosition = 'right'
             onToggle = { (event, isInputChecked) => {
               let stateSale = 'Pendiente'
               if (isInputChecked) {
                 stateSale = 'Credito'
               }
-              this.setState({
-                stateSale: stateSale
-              })
+              this.props.updateStateSale(stateSale)
             }}
           />
           <div className = 'text-align-right'>
@@ -241,6 +234,9 @@ const mapDispatchToProps = dispatch => {
     },
     saveSale(productsSale, clientID, state) {
       dispatch(saveSale(productsSale, clientID, state))
+    },
+    updateStateSale(stateSale) {
+      dispatch(updateStateSale(stateSale))
     }
   }
 }
