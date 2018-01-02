@@ -35,6 +35,10 @@ import {
   resetClient
 } from '../actions/clients'
 
+import {
+  modifyProductInSale
+} from '../actions/products'
+
 // Styles
 
 const muiTheme = getMuiTheme({
@@ -184,7 +188,18 @@ class ListProducts extends Component {
                         <td>
                           { product.total }
                         </td>
-                        <td>
+                        <td className = 'spread-two-icons'>
+                          <i
+                            className = 'fa fa-pencil fa-lg'
+                            id = { index }
+                            onClick = { (e) => {
+                              // Here I need to filter the respective product, and pass
+                              let product = this.props.productsSale.filter((productSale, index) =>
+                                index === parseInt(e.target.id, 10)
+                              ).pop()
+                              this.props.modifyProductInSale(product)
+                            }}
+                          ></i>
                           <i className = 'fa fa-trash fa-lg' id = { index } onClick = { (e) =>
                             this.props.deleteProductInSale(e.target.id)
                           }
@@ -225,6 +240,9 @@ const mapDispatchToProps = dispatch => {
     },
     loadClients() {
       dispatch(loadClients())
+    },
+    modifyProductInSale(productToModify) {
+      dispatch(modifyProductInSale(productToModify))
     },
     resetClient() {
       dispatch(resetClient())

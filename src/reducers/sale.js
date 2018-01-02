@@ -50,14 +50,31 @@ const sale = ( state = {
         quantity: action.amountProduct,
         unit: action.unitChosen,
         priceIndex: action.indexChosen,
-        price: _.round(action.priceUnitWithDiscount, 2),
+        price: _.round(action.priceUnit, 2),
         total: _.round(action.totalProduct, 2),
-        unitsInPrice: action.unitsInPrice
+        unitsInPrice: action.unitsInPrice,
+        discountsOptions: action.discountsOptions
       }
+
+      let productsSale = '';
+      let totalSale = 0;
+
+      if (action.modifyProduct) {
+        productsSale = state.productsSale.map(product => {
+          return (product.product === action.selectedProduct._id) ? objProductSale : product
+        })
+        for (let product of productsSale) {
+          totalSale += product.total
+        }
+      } else {
+        productsSale = state.productsSale.concat(objProductSale)
+        totalSale = _.round(state.totalSale + action.totalProduct, 2)
+      }
+
       return {
         ...state,
-        productsSale: state.productsSale.concat(objProductSale),
-        totalSale: _.round(state.totalSale + action.totalProduct, 2),
+        productsSale: productsSale,
+        totalSale: totalSale,
         disabledButton: false
       }
     }

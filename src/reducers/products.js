@@ -8,7 +8,7 @@ const products = (
     products: [],
     modal: false,
     productsFiltered: [],
-    amountProduct: '1',
+    amountProduct: 1,
     priceProduct: '',
     priceProductFor: '',
     totalProduct: '',
@@ -21,7 +21,8 @@ const products = (
     unitsInPrice: 1,
     indexChosenFor: 0,
     indexDiscountFor: 0,
-    stateLoader: true
+    stateLoader: true,
+    modifyProduct: false
   },
   action
 ) => {
@@ -101,11 +102,13 @@ const products = (
     }
     case 'SHOW_DETAIL_PRODUCT': {
       let firstMeasure = action.selectedProduct.prices[0].price
+      // Case user click in one flag price sample
       if (action.className === 'flag-price-samples') {
         firstMeasure = action.optionFlag
       }
       return {
         ...state,
+        modifyProduct: false,
         amountProduct: '1',
         modal: true,
         selectedProduct: action.selectedProduct,
@@ -120,6 +123,28 @@ const products = (
         indexChosenFor: action.indexFlag,
         indexDiscountFor: action.indexFlag,
         unitsInPrice: action.selectedProduct.prices[action.indexFlag].items
+      }
+    }
+    case 'MODIFY_PRODUCT_IN_SALE': {
+      let selectedProduct = state.products.filter(product =>
+        product._id === action.productToModify.product
+      ).pop()
+
+      return {
+        ...state,
+        modifyProduct: true,
+        amountProduct: action.productToModify.quantity,
+        modal: true,
+        selectedProduct: selectedProduct,
+        priceProduct: action.productToModify.price,
+        totalProduct: action.productToModify.total,
+        unitChosen: action.productToModify.unit,
+        indexChosen: action.productToModify.priceIndex,
+        unitsInPrice: action.productToModify.unitsInPrice,
+        priceProductFor: action.productToModify.discountsOptions.priceProductFor,
+        discountMeasureProduct: action.productToModify.discountsOptions.discountMeasureProduct,
+        discountProduct: action.productToModify.discountsOptions.discountProduct,
+        discountGeneralProduct: action.productToModify.discountsOptions.discountGeneralProduct
       }
     }
     case 'FILTER_PRODUCTS': {

@@ -101,6 +101,13 @@ const filterProducts = (string) => {
   })
 }
 
+const modifyProductInSale = (productToModify) => {
+  return ({
+    type: 'MODIFY_PRODUCT_IN_SALE',
+    productToModify
+  })
+}
+
 const showDetailProduct = (selectedProduct, className, option, index) => {
   return ({
     type: 'SHOW_DETAIL_PRODUCT',
@@ -150,6 +157,7 @@ export {
   filterProducts,
   hideDetailProduct,
   loadProducts,
+  modifyProductInSale,
   saveUnitChosen,
   saveUnitChosenFor,
   saveDiscountChosenFor,

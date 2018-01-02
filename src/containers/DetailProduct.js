@@ -91,6 +91,15 @@ class DetailProduct extends Component {
     let totalProduct = this.props.totalProduct
     let unitsInPrice = this.props.unitsInPrice
 
+    let discountsOptions = {
+      priceProductFor: this.props.priceProductFor,
+      discountMeasureProduct: this.props.discountMeasureProduct,
+      discountProduct: this.props.discountProduct,
+      discountGeneralProduct: this.props.discountGeneralProduct
+    }
+
+    let modifyProduct = this.props.modifyProduct
+
     if (givenCost < realCost) {
       swal({
         title: 'Tendrá cero o negativa ganancia en este producto',
@@ -111,7 +120,9 @@ class DetailProduct extends Component {
             indexChosen,
             totalPrice,
             totalProduct,
-            unitsInPrice
+            unitsInPrice,
+            discountsOptions,
+            modifyProduct
           )
           hideDetailProductMethod()
         }
@@ -122,9 +133,11 @@ class DetailProduct extends Component {
         this.props.amountProduct,
         this.props.unitChosen,
         this.props.indexChosen,
-        this.props.priceProduct - this.props.discountProduct,
+        this.props.priceProduct,
         this.props.totalProduct,
-        this.props.unitsInPrice
+        this.props.unitsInPrice,
+        discountsOptions,
+        modifyProduct
       )
       this.props.hideDetailProduct()
     }
@@ -160,7 +173,7 @@ class DetailProduct extends Component {
                   <ControlLabel>Cantidad</ControlLabel>
                   <FormControl
                     type = 'number'
-                    defaultValue = { 1 }
+                    value = { this.props.amountProduct }
                     onChange = { e => {
                       // Validation
                       let stateQuantity = null
@@ -381,7 +394,10 @@ class DetailProduct extends Component {
 
                     // Case user have permission by pin
                     if (localStorage.getItem('permissionDiscount') === 'PermitPIN' &&
-                      (this.props.discountGeneralProduct !== 0 || this.props.discountProduct !== 0)
+                      (
+                        parseInt(this.props.discountGeneralProduct, 10) !== 0 ||
+                        parseInt(this.props.discountProduct, 10) !== 0
+                      )
                     ) {
                       this.setState({
                         visibleWindowPIN: true
@@ -459,7 +475,8 @@ const mapStateToProps = state => {
     priceProduct: state.products.priceProduct,
     priceProductFor: state.products.priceProductFor,
     totalProduct: state.products.totalProduct,
-    unitsInPrice: state.products.unitsInPrice
+    unitsInPrice: state.products.unitsInPrice,
+    modifyProduct: state.products.modifyProduct
   }
 }
 
@@ -473,18 +490,22 @@ const mapDispatchToProps = dispatch => {
       amountProduct,
       unitChosen,
       indexChosen,
-      priceUnitWithDiscount,
+      priceUnit,
       totalProduct,
-      unitsInPrice
+      unitsInPrice,
+      discountsOptions,
+      modifyProduct
     ) {
       dispatch(addProductToSale(
         selectedProduct,
         amountProduct,
         unitChosen,
         indexChosen,
-        priceUnitWithDiscount,
+        priceUnit,
         totalProduct,
-        unitsInPrice
+        unitsInPrice,
+        discountsOptions,
+        modifyProduct
       ))
     },
     calculateSaleProduct(amount, price, priceFor, discountMeasure, discount, discountGeneral) {
