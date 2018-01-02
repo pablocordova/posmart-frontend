@@ -20,7 +20,7 @@ switch (process.env.REACT_APP_ENV) {
 
 const login = (email, pass, code) => {
 
-  return () => {
+  return dispatch => {
     return axios.post(SERVER_PATH + LOGIN_PATH, {
       email: email,
       password: pass,
@@ -35,7 +35,10 @@ const login = (email, pass, code) => {
           localStorage.setItem('permissionPin', response.data.permissionPin)
           window.location = BASE_URL.concat('/sale')
         } else {
-          console.log('Error login data')
+          dispatch({
+            type: 'SHOW_MESSAGE_ERROR',
+            errorMessage: response.data.message,
+          })
         }
       })
       .catch(error => {
@@ -45,4 +48,18 @@ const login = (email, pass, code) => {
 
 }
 
-export { login }
+const showError = (type) => {
+  return ({
+    type: 'SHOW_ERROR',
+    typeError: type
+  })
+}
+
+const removeError = (type) => {
+  return ({
+    type: 'REMOVE_ERROR',
+    typeErrorToRemove: type
+  })
+}
+
+export { login, showError, removeError }
