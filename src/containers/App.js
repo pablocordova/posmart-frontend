@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Nav, Navbar, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
@@ -42,6 +42,10 @@ class App extends Component {
     localStorage.removeItem('token')
     localStorage.removeItem('businessName')
     window.location = '/'
+  }
+
+  isUserLogin() {
+    return localStorage.getItem('token') ? true : false
   }
 
   render() {
@@ -93,10 +97,30 @@ class App extends Component {
 
           <Route path = '/login' component = { Login } />
 
-          <Route path = '/client' component = { Client } />
-          <Route path = '/sale' component = { Sale } />
-          <Route path = '/receipts' component = { Receipts } />
-          <Route path = '/listProducts' component = { ListProducts } />
+          <Route path = '/client' render = { () => (
+            this.isUserLogin() ? (
+              <Client />
+            ) :
+              <Redirect to = '/login'/>
+          )} />
+          <Route path = '/sale' render = { () => (
+            this.isUserLogin() ? (
+              <Sale />
+            ) :
+              <Redirect to = '/login'/>
+          )} />
+          <Route path = '/receipts' render = { () => (
+            this.isUserLogin() ? (
+              <Receipts />
+            ) :
+              <Redirect to = '/login'/>
+          )} />
+          <Route path = '/listProducts' render = { () => (
+            this.isUserLogin() ? (
+              <ListProducts />
+            ) :
+              <Redirect to = '/login'/>
+          )} />
         </div>
       </BrowserRouter>
 
