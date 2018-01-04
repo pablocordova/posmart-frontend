@@ -6,16 +6,18 @@ import React, { Component } from 'react'
 // Other modules
 import { Row, Grid, Col, Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { green500, indigo500 } from 'material-ui/styles/colors';
-import TextField from 'material-ui/TextField';
+import { withRouter } from 'react-router-dom'
+
+import { green500, indigo500 } from 'material-ui/styles/colors'
+import TextField from 'material-ui/TextField'
 
 import ContentReply from 'material-ui/svg-icons/content/reply'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import RaisedButton from 'material-ui/RaisedButton'
 import swal from 'sweetalert2'
 
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/font-awesome.min.css'
 
 // -- Own Modules
 import {
@@ -199,4 +201,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Client)
+)(withRouter(Client))
