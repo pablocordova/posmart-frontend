@@ -91,7 +91,7 @@ const products = (
     }
     case 'LOAD_PRODUCTS': {
       let productsWithPrices = action.products.filter(product => {
-        return product.prices.length > 0
+        return (product.prices.length > 0 && product.unitCost > 0)
       })
       return {
         ...state,
