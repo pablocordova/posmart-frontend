@@ -1,8 +1,10 @@
 import axios from 'axios'
 
 const GET_PRODUCTS_PATH = '/products'
-
 let SERVER_PATH = ''
+
+axios.defaults.headers.common['Authorization'] =
+  'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
 
 switch (process.env.REACT_APP_ENV) {
   case 'production':
@@ -76,14 +78,7 @@ const changeDiscountMeasureFor = measurePrice => {
 const loadProducts = () => {
 
   return dispatch => {
-    return axios.get(
-      SERVER_PATH + GET_PRODUCTS_PATH,
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
-      }
-    )
+    return axios.get(SERVER_PATH + GET_PRODUCTS_PATH)
       .then(response => {
         dispatch({
           type: 'LOAD_PRODUCTS',

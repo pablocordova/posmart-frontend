@@ -3,6 +3,9 @@ import axios from 'axios'
 const CLIENTS_PATH = '/customers'
 let SERVER_PATH = ''
 
+axios.defaults.headers.common['Authorization'] =
+  'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
+
 switch (process.env.REACT_APP_ENV) {
   case 'production':
     SERVER_PATH = process.env.REACT_APP_SERVER_PATH_PRODUCTION;
@@ -23,14 +26,7 @@ const clientToSale = (indexClientFiltered) => {
 
 const createClient = (client) => {
   return () => {
-    return axios.post(
-      SERVER_PATH + CLIENTS_PATH, client,
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
-      }
-    )
+    return axios.post(SERVER_PATH + CLIENTS_PATH, client)
       .then(response => {
         console.log(response.data)
       })
@@ -39,14 +35,7 @@ const createClient = (client) => {
 
 const deleteClient = (idClient) => {
   return () => {
-    return axios.delete(
-      SERVER_PATH + CLIENTS_PATH + '/' + idClient,
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
-      }
-    )
+    return axios.delete(SERVER_PATH + CLIENTS_PATH + '/' + idClient)
       .then(response => {
         console.log(response)
       })
@@ -71,14 +60,7 @@ const hideClientForm = () => {
 
 const loadClients = () => {
   return dispatch => {
-    return axios.get(
-      SERVER_PATH + CLIENTS_PATH,
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
-      }
-    )
+    return axios.get(SERVER_PATH + CLIENTS_PATH)
       .then(response => {
         dispatch({
           type: 'LOAD_CLIENTS',
@@ -109,14 +91,7 @@ const showModifyClient = (idClient) => {
 
 const updateClient = client => {
   return () => {
-    return axios.put(
-      SERVER_PATH + CLIENTS_PATH + '/' + client.id, client,
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
-      }
-    )
+    return axios.put(SERVER_PATH + CLIENTS_PATH + '/' + client.id, client)
       .then(response => {
         console.log(response.data)
       })

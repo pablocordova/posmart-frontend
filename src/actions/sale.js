@@ -4,8 +4,10 @@ const SALE_PATH = '/sales'
 const SETTINGS_PATH = '/settings'
 const PRINT_PATH = '/print/sale'
 const PROCESSED_SALES_PATH = '/processed'
-
 let SERVER_PATH = ''
+
+axios.defaults.headers.common['Authorization'] =
+  'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
 
 switch (process.env.REACT_APP_ENV) {
   case 'production':
@@ -52,14 +54,7 @@ const clearDataSale = () => {
 const copyReceiptToSale = (idReceipt) => {
 
   return dispatch => {
-    return axios.get(
-      SERVER_PATH + SALE_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
-      }
-    )
+    return axios.get(SERVER_PATH + SALE_PATH + PROCESSED_SALES_PATH + '/' + idReceipt)
       .then(response => {
         dispatch({
           type: 'COPY_RECEIPT_TO_SALE',
@@ -86,11 +81,6 @@ const saveSale = (productsSale, clientID, state) => {
         state: state,
         client: clientID,
         products: productsSale
-      },
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
       }
     )
       .then(response => {
@@ -112,11 +102,6 @@ const saveAndPrintSale = (productsSale, clientID, state) => {
         state: state,
         client: clientID,
         products: productsSale
-      },
-      {
-        headers: {
-          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-        }
       }
     )
       .then(response => {
@@ -127,11 +112,6 @@ const saveAndPrintSale = (productsSale, clientID, state) => {
           SERVER_PATH + SETTINGS_PATH + PRINT_PATH,
           {
             saleID: response.data.result._id
-          },
-          {
-            headers: {
-              'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
-            }
           }
         )
           .then(res => {
