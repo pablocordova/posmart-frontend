@@ -28,7 +28,7 @@ const login = (email, pass, code) => {
     })
       .then(response => {
         if (typeof response.data.token !== 'undefined') {
-          localStorage.setItem('token', response.data.token)
+          localStorage.setItem(process.env.REACT_APP_TOKEN_NAME, response.data.token)
           localStorage.setItem('username', response.data.username)
           localStorage.setItem('businessName', response.data.businessName.toUpperCase())
           localStorage.setItem('permissionDiscount', response.data.permissionDiscount)

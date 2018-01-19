@@ -27,7 +27,7 @@ const createClient = (client) => {
       SERVER_PATH + CLIENTS_PATH, client,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -43,7 +43,7 @@ const deleteClient = (idClient) => {
       SERVER_PATH + CLIENTS_PATH + '/' + idClient,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -75,7 +75,7 @@ const loadClients = () => {
       SERVER_PATH + CLIENTS_PATH,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -113,7 +113,7 @@ const updateClient = client => {
       SERVER_PATH + CLIENTS_PATH + '/' + client.id, client,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )

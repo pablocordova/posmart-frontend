@@ -56,7 +56,7 @@ const copyReceiptToSale = (idReceipt) => {
       SERVER_PATH + SALE_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -89,7 +89,7 @@ const saveSale = (productsSale, clientID, state) => {
       },
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -115,7 +115,7 @@ const saveAndPrintSale = (productsSale, clientID, state) => {
       },
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -130,7 +130,7 @@ const saveAndPrintSale = (productsSale, clientID, state) => {
           },
           {
             headers: {
-              'Authorization': 'JWT ' + localStorage.getItem('token')
+              'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
             }
           }
         )

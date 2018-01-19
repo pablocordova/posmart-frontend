@@ -30,29 +30,21 @@ const backgroundNavbarStyle = {
 
 class App extends Component {
 
-  constructor(){
-    super()
-    this.state = {
-      token: '',
-      username: ''
-    }
-  }
-
   logout() {
-    localStorage.removeItem('token')
+    localStorage.removeItem(process.env.REACT_APP_TOKEN_NAME)
     localStorage.removeItem('businessName')
     window.location = '/'
   }
 
   isUserLogin() {
-    return localStorage.getItem('token') ? true : false
+    return localStorage.getItem(process.env.REACT_APP_TOKEN_NAME) ? true : false
   }
 
   render() {
 
     let navbarOptions = null
 
-    if (localStorage.getItem('token') === null) {
+    if (localStorage.getItem(process.env.REACT_APP_TOKEN_NAME) === null) {
       navbarOptions = (
         <Nav pullRight>
           <LinkContainer to = '/login'>

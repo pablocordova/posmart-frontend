@@ -33,7 +33,7 @@ const getLastReceipts = () => {
       SERVER_PATH + SALES_PATH + LAST_SALES_PATH,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -54,7 +54,7 @@ const getReceiptById = (idReceipt) => {
       SERVER_PATH + SALES_PATH + BYID_SALES_PATH + '/' + idReceipt,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -82,7 +82,7 @@ const showCompleteReceipt = (idReceipt) => {
       SERVER_PATH + SALES_PATH + PROCESSED_SALES_PATH + '/' + idReceipt,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
@@ -106,7 +106,7 @@ const printSale = (idReceipt) => {
       },
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )

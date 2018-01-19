@@ -80,7 +80,7 @@ const loadProducts = () => {
       SERVER_PATH + GET_PRODUCTS_PATH,
       {
         headers: {
-          'Authorization': 'JWT ' + localStorage.getItem('token')
+          'Authorization': 'JWT ' + localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)
         }
       }
     )
